@@ -1,5 +1,24 @@
 doctype html
 html
     head
+        title= title
+        link(rel='stylesheet', href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css")
+        link(rel='stylesheet', href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css")
+        link(rel='stylesheet', href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js")
+        link(rel='stylesheet', href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css")
+    style(type="text/css")
+        .body { padding-top:80px; }
     body
-      p 로그인 되었습니다 (미구현)
+        .container
+            .col-sm-6.col-sm-offet-3
+                h1
+                    span(class="fa fa-sign-in")  아수라에 로그인 해주세요!
+                form(action="/login_success" method="get")
+                    .form-group
+                        label Email
+                        input(type="text" class="form-control" name="email")
+                    .form-group
+                        label Password
+                        input(type="password" class="form-control" name="password")
+                     button(type="submit" class="btn btn-primary btn-md")  Login
+
