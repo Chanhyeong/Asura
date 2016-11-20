@@ -1,11 +1,12 @@
-extends layout
-
-block content
-  h1= title
-  p Welcome to #{title}
-  div#chatview
-  form(onsubmit="return false;")
-    input#chatmsg
-    button(onclick = "sendMessage()") Send
-    br
-    a(href="/lab") lab
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css")
+    link(rel='stylesheet', href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css")
+    link(rel='stylesheet', href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js")
+  body
+    .block
+      h1 아수라
+      a(href="login" class="btn btn-primary") Login
+      a(href="signup" class="btn btn-primary") Signup
