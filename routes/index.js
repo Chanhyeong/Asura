@@ -4,7 +4,7 @@ var path = require('path');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Ajou Chat' });
+  res.render('index');
 });
 
 module.exports = router;
