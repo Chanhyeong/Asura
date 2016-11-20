@@ -27,7 +27,6 @@ app.use(express.static(path.join(__dirname, '/')));
 
 app.use('/', require('./routes/index'));
 app.use('/lab', require('./routes/lab'));
-app.use('/login', require('./routes/login'));
 
 // passport 사용 설정
 app.use(passport.initialize());
