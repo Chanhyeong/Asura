@@ -23,10 +23,10 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, '/')));
 
 app.use('/', require('./routes/index'));
-app.use('/lab', require('./routes/lab'));
+app.use('/timetable', require('./routes/timetable'));
 
 // passport 사용 설정
 app.use(passport.initialize());

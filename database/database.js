@@ -13,7 +13,7 @@ database.init = function(app, config) {
 	console.log('init() 호출됨.');
 	
 	connect(app, config);
-}
+};
 
 //데이터베이스에 연결하고 응답 객체의 속성으로 db 객체 추가
 function connect(app, config) {
