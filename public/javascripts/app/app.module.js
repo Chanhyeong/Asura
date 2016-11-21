@@ -18,14 +18,15 @@ var app_component_1 = require('./app.component');
 var circle_service_1 = require("./circle.service");
 var circle_distance_component_1 = require("./circle-distance.component");
 var circle_intersect_component_1 = require("./circle-intersect.component");
+var table_component_1 = require("./table.component");
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, forms_1.FormsModule],
-            declarations: [app_component_1.AppComponent, circle_distance_component_1.CircleDistanceComponent, circle_intersect_component_1.CircleIntersectComponent],
-            bootstrap: [app_component_1.AppComponent],
+            declarations: [app_component_1.AppComponent, circle_distance_component_1.CircleDistanceComponent, circle_intersect_component_1.CircleIntersectComponent, table_component_1.TableComponent],
+            bootstrap: [app_component_1.AppComponent, table_component_1.TableComponent],
             providers: [circle_service_1.CircleService]
         }), 
         __metadata('design:paramtypes', [])

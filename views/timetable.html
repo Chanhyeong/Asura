@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Angular QuickStart</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <title>Welcome to Asura</title>
+  <meta name="viewport" content="initial-scale=1.0 maximum-scale=1.0 width=device-width">
+  <link rel="stylesheet" href="public/stylesheets/timetable.css">
   <!-- 1. Load libraries -->
   <!-- Polyfill(s) for older browsers -->
   <script src="node_modules/core-js/client/shim.min.js"></script>
@@ -16,7 +17,15 @@
     System.import('app').catch(function(err){ console.error(err); });
   </script>
 </head>
+
 <body>
 <circle></circle>
 </body>
+
+<footer>
+  <div class="table-title">
+    <h3>강의 목록</h3>
+  </div>
+  <list></list>
+</footer>
 </html>

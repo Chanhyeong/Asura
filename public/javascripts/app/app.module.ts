@@ -8,11 +8,12 @@ import { AppComponent } from './app.component';
 import {CircleService} from "./circle.service";
 import {CircleDistanceComponent} from "./circle-distance.component";
 import {CircleIntersectComponent} from "./circle-intersect.component";
+import { TableComponent } from "./table.component";
 
 @NgModule({
     imports: [ BrowserModule,FormsModule ],
-    declarations: [ AppComponent, CircleDistanceComponent, CircleIntersectComponent ],
-    bootstrap: [ AppComponent ],
+    declarations: [ AppComponent, CircleDistanceComponent, CircleIntersectComponent, TableComponent ],
+    bootstrap: [ AppComponent, TableComponent ],
     providers: [ CircleService ]
 })
 export class AppModule { }
