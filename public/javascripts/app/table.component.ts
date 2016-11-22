@@ -12,6 +12,7 @@ import { Lecture } from './lecture'
         <th class="">수강번호</th>
         <th class="">개설학부</th>
         <th class="">개설전공</th>
+        <th class="">과목분류</th>
         <th class="">과목명</th>
         <th class="">영문 과목명</th>
         <th class="">교과 구분</th>
@@ -31,6 +32,7 @@ import { Lecture } from './lecture'
         <td class="code"></td>
         <td class="department"></td>
         <td class="major"></td>
+        <td class="category"></td>
         <td class="title"></td>
         <td class="enTitle"></td>
         <td class="abeek"></td>

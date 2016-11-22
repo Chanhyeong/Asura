@@ -14,10 +14,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
-var app_component_1 = require('./app.component');
-var circle_service_1 = require("./circle.service");
-var circle_distance_component_1 = require("./circle-distance.component");
-var circle_intersect_component_1 = require("./circle-intersect.component");
 var table_component_1 = require("./table.component");
 var AppModule = (function () {
     function AppModule() {
@@ -25,9 +21,8 @@ var AppModule = (function () {
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, forms_1.FormsModule],
-            declarations: [app_component_1.AppComponent, circle_distance_component_1.CircleDistanceComponent, circle_intersect_component_1.CircleIntersectComponent, table_component_1.TableComponent],
-            bootstrap: [app_component_1.AppComponent, table_component_1.TableComponent],
-            providers: [circle_service_1.CircleService]
+            declarations: [table_component_1.TableComponent],
+            bootstrap: [table_component_1.TableComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], AppModule);
