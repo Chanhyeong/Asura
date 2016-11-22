@@ -51,4 +51,4 @@ import { Lecture } from './lecture'
 
 export class TableComponent {
 
-}
+Y
