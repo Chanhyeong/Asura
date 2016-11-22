@@ -4,12 +4,15 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var config = require('./config/config');
-var database = require('./database/database');
+//var config = require('./config/config');
 var passport = require('passport');
 var flash = require('connect-flash');
 var app = express();
 app.io = require('socket.io')();
+
+var config = require('./config/config');
+var route_loader = require('./routes/route_loader');
+var database = require('./database/database');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,18 +28,26 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/')));
 
-app.use('/', require('./routes/index'));
-app.use('/timetable', require('./routes/timetable'));
+// database 초기화
+database.init(app, config);
 
 // passport 사용 설정
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
+
+app.use('/', require('./routes/index'));
+app.use('/timetable', require('./routes/timetable'));
+
+
 var configPassport = require('./config/passport');
 configPassport(app, passport);
+//var userPassport = require('./routes/index');
+//userPassport(app, passport);
 
-// database 초기화
-database.init(app, config);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -12,12 +12,15 @@ html
             .col-sm-6.col-sm-offet-3
                 h1
                     span(class="fa fa-sign-in")  로그인
-                form(action="/asura" method="post")
+                form(action="/login" method="post")
                     .form-group
                         label Email
                         input(type="text" class="form-control" name="email")
                     .form-group
                         label Password
                         input(type="password" class="form-control" name="password")
-                     button(type="submit" class="btn btn-primary btn-md")  Login
-
+                    button(type="submit" class="btn btn-primary btn-md")  Login
+                br
+                p 계정이 없으세요?
+                    a(href="/signup") 회원 가입 하러하기
+                a(href="/") 홈으로 가기

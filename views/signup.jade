@@ -17,12 +17,15 @@ html
             .col-sm-6.col-sm-offet-3
                 h1
                     span(class="fa fa-sign-in")  회원가입
-                form(action="/asura" method="post")
+                form(action="/signup" method="post")
                     .form-group
                         label Email
                         input(type="text" class="form-control" name="email")
                     .form-group
                         label Password
                         input(type="password" class="form-control" name="password")
-                    button(type="submit" class="btn btn-primary btn-md")  Login
+                    .form-group
+                        label nick-name
+                        input(type="text" class="form-control" name="name")
+                    button(type="submit" class="btn btn-primary btn-md")  Signup
 
