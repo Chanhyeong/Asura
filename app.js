@@ -32,10 +32,10 @@ app.use(express.static(path.join(__dirname, '/')));
 database.init(app, config);
 
 // passport 사용 설정
-
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
+
 
 
 app.use('/', require('./routes/index'));

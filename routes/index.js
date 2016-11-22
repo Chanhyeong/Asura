@@ -24,7 +24,7 @@ router.get('/signup', function(req, res, next) {
 
 router.get('/profile', function(req, res, next) {
     if (Array.isArray(req.user)) {
-        res.render('profile', {title : "로그인 성공!!",user: req.user[0]._doc});
+        res.render('profile', {title : "로그인 성공!!!",user: req.user[0]._doc});
     } else {
         res.render('profile', {title : "로그인 성공!!",user: req.user});
     }
