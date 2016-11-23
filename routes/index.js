@@ -22,21 +22,20 @@ var passport = require('passport');
             res.render('login', {title: "아수라 로그인"});
         }
         else {
-            res.render('index', {login_success: false});
+            res.render('login', {login_success: false});
         }
     });
 
-    router.get('/signup', function (req, next) {
-        res.render('signup', {title: "아수라 회원가입"});
+    router.get('/signup', function (req,res, next) {
+
+        res.render('signup', {title: "아수라 로그인"});
     });
 
-    router.get('/profile', function (req, next) {
+    router.get('/profile', function (req, res,next) {
         if (!req.isAuthenticated()) {
-            console.log("앙모띠");
             res.redirect('/');
         }
         else {
-            console.log("앙2");
             console.log(req.user);
             if (Array.isArray(req.user)) {
                 res.render('profile', {title: "로그인 성공!!!", user: req.user[0]._doc});
