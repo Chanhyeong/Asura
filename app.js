@@ -2,9 +2,11 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
+
 var bodyParser = require('body-parser');
-//var config = require('./config/config');
+var cookieParser = require('cookie-parser');
+var expressSession = require('express-session');
+
 var passport = require('passport');
 var flash = require('connect-flash');
 var app = express();
@@ -13,6 +15,7 @@ app.io = require('socket.io')();
 var config = require('./config/config');
 var route_loader = require('./routes/route_loader');
 var database = require('./database/database');
+var index = require('./routes/index');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,21 +34,27 @@ app.use(express.static(path.join(__dirname, '/')));
 // database 초기화
 database.init(app, config);
 
+app.use(cookieParser());
+app.use(expressSession({
+  secret:'my key',
+  resave:true,
+  saveUninitialized:true
+}));
+
 // passport 사용 설정
-app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
+//route_loader.init(app);
 
-
-app.use('/', require('./routes/index'));
+app.use('/', index);
 app.use('/timetable', require('./routes/timetable'));
 
 
 var configPassport = require('./config/passport');
 configPassport(app, passport);
-//var userPassport = require('./routes/index');
-//userPassport(app, passport);
+//index(app, passport);
 
 
 

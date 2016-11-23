@@ -37,6 +37,7 @@
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.33.3",
     "express": "~4.13.1",
+    "express-session": "^1.14.2",
     "jade": "~1.11.0",
     "mongodb": "^2.0.33",
     "mongoose": "^4.0.5",

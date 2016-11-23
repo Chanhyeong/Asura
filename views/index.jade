@@ -11,13 +11,20 @@ html
     .container
       .jumbotron.text-center
         h1 아수라
-        p 아주대 수강신청 도우미
-        a(href="./login" class="btn btn-default")
-          span(class="fa fa-user")  Login
-        a(href="./signup" class="btn btn-default")
-         span(class="fa fa-user")  Signup
-        br
-        a(href="./signup" class="btn btn-primary")
-         span(class="fa fa-user")  facebook (미구현)
-       a(href="./timetable" class="btn btn-warning")
-         span(class="fa fa-space-shuttle")  실험실로 가기
+        if login_success == false
+          p 아주대 수강신청 도우미
+          a(href="./login" class="btn btn-default")
+           span(class="fa fa-user")  Login
+          a(href="./signup" class="btn btn-default")
+           span(class="fa fa-user")  Signup
+          br
+          a(href="./signup" class="btn btn-primary")
+           span(class="fa fa-user")  facebook (미구현)
+        else
+          p 이미 로그인이 되어 있습니다.
+          a(href="./logout" class="btn btn-default")
+           span(class="fa fa-user")  Logout
+        <br>
+
+      a(href="./timetable" class="btn btn-warning")
+        span(class="fa fa-space-shuttle")  실험실로 가기
