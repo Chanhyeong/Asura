@@ -3,18 +3,19 @@
  */
 
 export class Lecture{
-    code: String;
-    department : String;
-    major : String;
-    title : String;
-    enTitle : String;
-    abeek : String;
-    point : String;
-    time : String;
-    professor : String;
-    timetable : String;
-    enLecture : String;
-    total : number;
-    leftSeat : number;
-    remove : String;
+    code: string;
+    timetable: string;
+    professor: string;
+    major: string;
+    point: number;
+    enTitle: string;
+    krTitle: string;
+    semester: string;
+    category: string;
+    department: string;
+    time: number;
+    abeek: string;
+    enLecture: string;
+    enGrade: string;
+    total: number;
 }

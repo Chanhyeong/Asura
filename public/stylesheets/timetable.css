@@ -117,7 +117,7 @@ div.table-title {
     border-right: 1px solid #343a45;
     font-size:13px;
     font-weight: 100;
-    padding:10px;
+    padding:7px;
     text-align:center;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
     vertical-align: middle;
@@ -164,11 +164,11 @@ div.table-title {
 
 #lecture_list td {
     background:#FFFFFF;
-    padding:15px;
+    padding:5px;
     text-align:center;
     vertical-align:middle;
     font-weight:300;
-    font-size:16px;
+    font-size:12px;
     text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
     border-right: 1px solid #C1C3D1;
 }
