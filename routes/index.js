@@ -25,7 +25,7 @@ router.get('/', function (req, res,next) {
  });
 
 router.get('/signup', function (req,res, next) {
-     res.render('signup', {title: "아수라 로그인"});
+     res.render('signup', {title: "아수라 로그인",message: req.flash('signupMessage')});
 });
 
 router.get('/profile', function (req, res,next) {
