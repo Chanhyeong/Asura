@@ -12,6 +12,9 @@ html
             .col-sm-6.col-sm-offet-3
                 h1
                     span(class="fa fa-sign-in")  회원가입
+                if message.length > 0
+                    .alert.alret-danger
+                       message
                 form(action="/signup" method="post")
                     .form-group
                         label Email

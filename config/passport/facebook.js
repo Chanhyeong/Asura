@@ -32,7 +32,7 @@ module.exports = function(app, passaort) {
 					authToken: accessToken,
 					facebook: profile._json
 				});
-				//console.log('!!!!!!!!!!!!!!!\n' + user.email);
+
 				user.save(function (err) {
 					if (err) console.log(err);
 					return done(err, user);

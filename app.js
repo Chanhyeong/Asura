@@ -54,8 +54,6 @@ app.use('/timetable', require('./routes/timetable'));
 
 var configPassport = require('./config/passport');
 configPassport(app, passport);
-//index(app, passport);
-
 
 
 // catch 404 and forward to error handler
