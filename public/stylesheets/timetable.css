@@ -191,13 +191,12 @@ div.table-title {
     border-right: 1px solid #C1C3D1;
 }
 
-<<<<<<< HEAD
 #lecture_list td:last-child {
-    border-right: 0;
-=======
+    border-right: 0px;
+
 .table-fill td:last-child {
     border-right: 0px;
->>>>>>> 35a613f9abe716c0dbb180b3c81199d97bacdd96
+
 }
 
 .table-fill .abeek, .point, .time, .total, .leftSeat, .add, .enLecture, .code{
