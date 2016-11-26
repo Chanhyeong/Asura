@@ -54,7 +54,8 @@ body {
 }
 
 #timetable_work_space{
-    text-align: center;
+    margin-left: 50px;
+    text-align: left;
 }
 
 /* 두 개의 div가 한 열에 표시, div간 간격 제거*/

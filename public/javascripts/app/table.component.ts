@@ -6,8 +6,9 @@ import { Lecture } from './lecture'
 import { LECTURES } from './lecture-data'
 
 @Component({
-    selector: 'list',
-    template: `<table class="table-fill">
+        selector: 'class-info',
+        templateUrl: 'public/javascripts/app/table.component.html',
+        template: `<table class="table-fill">
     <thead>
       <tr>
         <th class="code">수강번호</th>

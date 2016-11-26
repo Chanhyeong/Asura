@@ -1,0 +1,221 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
+
+body {
+    font-family: "Roboto", helvetica, arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    text-rendering: optimizeLegibility;
+}
+
+.plans{
+    height: 65px;
+}
+
+.pagination{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#timetable_work_space{
+    float : left;
+    padding-left : 100px;
+}
+#timetable_work_space th {
+    color:#D5DDE5;
+    background:#1b1e24;
+    border-bottom:4px solid #9ea7af;
+    border-right: 1px solid #343a45;
+    font-size:15px;
+    font-weight: 500;
+    padding:10px;
+    text-align:center;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    vertical-align:middle;
+}
+
+#timetable_work_space .noshow {
+    width: 0px;
+    height: 15px;
+    padding: 0px;
+    border-right: 0px;
+    border-bottom: 0px;
+}
+
+#timetable_work_space td {
+    background:#FFFFFF;
+    padding:8px;
+    text-align:center;
+    vertical-align:middle;
+    font-weight:300;
+    font-size:12px;
+    text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid #C1C3D1;
+    border-bottom: 1px solid #C1C3D1;
+}
+
+.time_table_time_alphabet{
+    border-left: 1px solid #C1C3D1;
+}
+
+#timetable_work_space{
+    text-align: center;
+}
+
+/* 두 개의 div가 한 열에 표시, div간 간격 제거*/
+.time_table_time, .time_table_class{
+    display:inline-block;
+    margin: 0 -4px 0 0;
+}
+
+.time_table_class th{
+    width: 100px;
+}
+
+div.table-title {
+    display: block;
+    max-width: 600px;
+    margin-left: 52px;
+    width: 100%;
+}
+
+.table-title h3 {
+    color: #1b1e24;
+    font-size: 20px;
+    font-weight: 900;
+    font-style:normal;
+    font-family: "Roboto", helvetica, arial, sans-serif;
+    text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+    text-transform:uppercase;
+}
+
+
+/*** Table Styles **/
+
+/* 두 개의 div가 한 열에 표시, div간 간격 제거*/
+
+.search{
+    margin-right: 50px;
+    text-align: right;
+}
+
+.search div{
+    display:inline-block;
+    margin: 0 1px 0 0;
+}
+
+.table-fill {
+    background: white;
+    border-radius:3px;
+    border-collapse: collapse;
+    max-width: 1480px;
+    margin: auto;
+    padding:5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    animation: float 5s infinite;
+    display: block;
+    width: 100%;
+}
+
+.table-fill thead{
+    max-width: 1460px;
+}
+
+.table-fill tbody{
+    display: block;
+    max-width: 1480px;
+    height: 150px;
+    overflow-y: scroll;
+    width: 100%;
+}
+.table-fill th {
+    color:#D5DDE5;
+    background:#1b1e24;
+    border-bottom:4px solid #9ea7af;
+    border-right: 1px solid #343a45;
+    font-size:13px;
+    font-weight: 100;
+    padding:7px;
+    text-align:center;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    vertical-align: middle;
+}
+
+.table-fill th:first-child {
+    border-top-left-radius:3px;
+}
+
+.table-fill th:last-child {
+    border-top-right-radius:3px;
+    border-right:none;
+}
+
+.table-fill tr {
+    border-top: 1px solid #C1C3D1;
+    border-bottom: 1px solid #C1C3D1;
+    color:#666B85;
+    font-size:16px;
+    font-weight:normal;
+    text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+}
+
+.table-fill tr:hover td {
+    background:#4E5066;
+    color:#FFFFFF;
+}
+
+.table-fill tr:first-child {
+    border-top:none;
+}
+
+.table-fill tr:last-child {
+    border-bottom:none;
+}
+
+.table-fill tr:nth-child(odd) td {
+    background:#EBEBEB;
+}
+
+.table-fill tr:nth-child(odd):hover td {
+    background:#4E5066;
+}
+
+.table-fill td {
+    background:#FFFFFF;
+    padding:5px;
+    text-align:center;
+    vertical-align:middle;
+    font-weight:300;
+    font-size:12px;
+    text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid #C1C3D1;
+}
+
+.table-fill td:last-child {
+    border-right: 0px;
+}
+
+.table-fill .abeek, .point, .time, .total, .leftSeat, .add, .enLecture, .code{
+    width: 45px;
+}
+
+.table-fill .professor{
+    width: 88px;
+}
+
+.table-fill .category{
+    width: 100px;
+}
+.table-fill .department, .major{
+    width: 150px;
+}
+
+.table-fill .timetable, .title, .enTitle{
+    width: 200px;
+}
+footer {
+    text-align: center;
+    margin: auto;
+    padding: 20px;
+
+    text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+}
