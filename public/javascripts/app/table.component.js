@@ -13,19 +13,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  */
 var core_1 = require('@angular/core');
 var lecture_data_1 = require('./lecture-data');
-var InfoComponent = (function () {
-    function InfoComponent() {
+var TableComponent = (function () {
+    function TableComponent() {
         this.lectures = lecture_data_1.LECTURES;
     }
-    InfoComponent = __decorate([
+    TableComponent = __decorate([
         core_1.Component({
             selector: 'class-info',
-            styleUrls: ['public/javascripts/app/table.component.css'],
-            templateUrl: 'public/javascripts/app/table.component.html'
+            templateUrl: 'public/javascripts/app/table.component.html',
         }), 
         __metadata('design:paramtypes', [])
-    ], InfoComponent);
-    return InfoComponent;
+    ], TableComponent);
+    return TableComponent;
 }());
-exports.InfoComponent = InfoComponent;
+exports.TableComponent = TableComponent;
 //# sourceMappingURL=table.component.js.map

@@ -6,12 +6,10 @@ import { Lecture } from './lecture'
 import { LECTURES } from './lecture-data'
 
 @Component({
-    selector: 'class-info',
-    styleUrls: ['public/javascripts/app/table.component.css'],
-    templateUrl: 'public/javascripts/app/table.component.html'
-
+        selector: 'class-info',
+        templateUrl: 'public/javascripts/app/table.component.html',
 })
 
-export class InfoComponent {
+export class TableComponent {
     lectures=LECTURES;
 }

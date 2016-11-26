@@ -57,7 +57,8 @@ body {
 }
 
 #timetable_work_space{
-    text-align: center;
+    margin-left: 50px;
+    text-align: left;
 }
 
 /* 두 개의 div가 한 열에 표시, div간 간격 제거*/
@@ -90,21 +91,11 @@ div.table-title {
 
 /*** Table Styles **/
 
-.table-fill {
-    background: white;
-    border-radius:3px;
-    border-collapse: collapse;
-    margin: auto;
-    max-width: 1800px;
-    padding:5px;
-    width: 100%;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    animation: float 5s infinite;
-}
 
 /* 두 개의 div가 한 열에 표시, div간 간격 제거*/
 
 .search{
+    margin-right: 50px;
     text-align: right;
 }
 
@@ -113,7 +104,31 @@ div.table-title {
     margin: 0 1px 0 0;
 }
 
-#lecture_list th {
+.table-fill {
+    background: white;
+    border-radius:3px;
+    border-collapse: collapse;
+    max-width: 1480px;
+    margin: auto;
+    padding:5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    animation: float 5s infinite;
+    display: block;
+    width: 100%;
+}
+
+.table-fill thead{
+    max-width: 1460px;
+}
+
+.table-fill tbody{
+    display: block;
+    max-width: 1480px;
+    height: 150px;
+    overflow-y: scroll;
+    width: 100%;
+}
+.table-fill th {
     color:#D5DDE5;
     background:#1b1e24;
     border-bottom:4px solid #9ea7af;
@@ -126,16 +141,16 @@ div.table-title {
     vertical-align: middle;
 }
 
-#lecture_list th:first-child {
+.table-fill th:first-child {
     border-top-left-radius:3px;
 }
 
-#lecture_list th:last-child {
+.table-fill th:last-child {
     border-top-right-radius:3px;
     border-right:none;
 }
 
-#lecture_list tr {
+.table-fill tr {
     border-top: 1px solid #C1C3D1;
     border-bottom: 1px solid #C1C3D1;
     color:#666B85;
@@ -144,28 +159,28 @@ div.table-title {
     text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
 }
 
-#lecture_list tr:hover td {
+.table-fill tr:hover td {
     background:#4E5066;
     color:#FFFFFF;
 }
 
-#lecture_list tr:first-child {
+.table-fill tr:first-child {
     border-top:none;
 }
 
-#lecture_list tr:last-child {
+.table-fill tr:last-child {
     border-bottom:none;
 }
 
-#lecture_list tr:nth-child(odd) td {
+.table-fill tr:nth-child(odd) td {
     background:#EBEBEB;
 }
 
-#lecture_list tr:nth-child(odd):hover td {
+.table-fill tr:nth-child(odd):hover td {
     background:#4E5066;
 }
 
-#lecture_list td {
+.table-fill td {
     background:#FFFFFF;
     padding:5px;
     text-align:center;
@@ -176,8 +191,32 @@ div.table-title {
     border-right: 1px solid #C1C3D1;
 }
 
+<<<<<<< HEAD
 #lecture_list td:last-child {
     border-right: 0;
+=======
+.table-fill td:last-child {
+    border-right: 0px;
+>>>>>>> 35a613f9abe716c0dbb180b3c81199d97bacdd96
+}
+
+.table-fill .abeek, .point, .time, .total, .leftSeat, .add, .enLecture, .code{
+    width: 45px;
+}
+
+.table-fill .professor{
+    width: 88px;
+}
+
+.table-fill .category{
+    width: 100px;
+}
+.table-fill .department, .major{
+    width: 150px;
+}
+
+.table-fill .timetable, .title, .enTitle{
+    width: 200px;
 }
 
 footer {
