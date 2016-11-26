@@ -192,10 +192,11 @@ div.table-title {
 }
 
 #lecture_list td:last-child {
-    border-right: 0px;
+    border-right: 0;
+}
 
 .table-fill td:last-child {
-    border-right: 0px;
+    border-right: 0;
 
 }
 

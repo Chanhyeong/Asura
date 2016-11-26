@@ -12,7 +12,6 @@ import {CartComponent}  from "./cart.component";
 @NgModule({
     imports: [ BrowserModule,FormsModule,NgbModule.forRoot() ],
     declarations: [ TableComponent,AppComponent,PlanComponent,ListComponent,CartComponent ],
-    declarations: [ TableComponent,AppComponent,PlanComponent,ListComponent ],
     bootstrap: [ AppComponent ]
 })
 export class AppModule { }

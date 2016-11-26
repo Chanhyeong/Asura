@@ -23,11 +23,7 @@ var AppModule = (function () {
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, ng_bootstrap_1.NgbModule.forRoot()],
-<<<<<<< HEAD
-            declarations: [table_component_1.InfoComponent, app_component_1.AppComponent, plan_component_1.PlanComponent, class_list_component_1.ListComponent, cart_component_1.CartComponent],
-=======
-            declarations: [table_component_1.TableComponent, app_component_1.AppComponent, plan_component_1.PlanComponent, class_list_component_1.ListComponent],
->>>>>>> 35a613f9abe716c0dbb180b3c81199d97bacdd96
+            declarations: [table_component_1.TableComponent, app_component_1.AppComponent, plan_component_1.PlanComponent, class_list_component_1.ListComponent, cart_component_1.CartComponent],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

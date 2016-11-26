@@ -15,7 +15,6 @@ var CartComponent = (function () {
     CartComponent = __decorate([
         core_1.Component({
             selector: 'cart',
-            styleUrls: ['public/javascripts/app/table.component.css'],
             templateUrl: 'public/javascripts/app/cart.component.html'
         }), 
         __metadata('design:paramtypes', [])
