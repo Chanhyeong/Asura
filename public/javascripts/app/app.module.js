@@ -8,21 +8,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-/**
- * Created by chanhyeong on 2016-11-03.
- */
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
 var table_component_1 = require("./table.component");
+var app_component_1 = require("./app.component");
+var ng_bootstrap_1 = require('@ng-bootstrap/ng-bootstrap');
+//import {Alert} from 'ng2-bootstrap/ng2-bootstrap';
+var plan_component_1 = require("./plan.component");
+var class_list_component_1 = require("./class-list.component");
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule],
-            declarations: [table_component_1.TableComponent],
-            bootstrap: [table_component_1.TableComponent]
+            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, ng_bootstrap_1.NgbModule.forRoot()],
+            declarations: [table_component_1.InfoComponent, app_component_1.AppComponent, plan_component_1.PlanComponent, class_list_component_1.ListComponent],
+            bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], AppModule);

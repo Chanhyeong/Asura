@@ -17,7 +17,7 @@ router.get('/', function (req, res,next) {
 });
  router.get('/login', function (req, res,next) {
      if (req.user == undefined) {
-         res.render('login', {login_success: false, title: "아수라 로그인"});
+         res.render('login', {login_success: false, title: "아수라 로그인",message: req.flash('loginMessage')});
      }
      else {
          res.render('login', {login_success: true});
@@ -45,7 +45,7 @@ router.get('/profile', function (req, res,next) {
 
 router.post('/login',
     passport.authenticate('local-login', {
-        successRedirect: '/profile',
+        successRedirect: '/timetable',
         failureRedirect: '/login',
         failureFlash: true
     })

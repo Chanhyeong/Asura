@@ -19,7 +19,7 @@ module.exports = new LocalStrategy({
     	// 등록된 사용자가 없는 경우
     	if (!user) {
     		console.log('계정이 일치하지 않음.');
-    		return done(null, false, req.flash('loginMessage', '등록된 계정이 없습니다.'));
+    		return done(null, false, req.flash('loginMessage', '계정이 존재하지 않습니다.'));
     	}
     	
     	// 비밀번호 비교하여 맞지 않는 경우
