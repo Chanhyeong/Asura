@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
     selector: 'asura-app',
     template: `
     <plan></plan>
+    <cart></cart>
     <class-info></class-info>
     `
 

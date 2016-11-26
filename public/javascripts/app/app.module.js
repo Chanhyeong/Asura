@@ -14,16 +14,16 @@ var forms_1 = require('@angular/forms');
 var table_component_1 = require("./table.component");
 var app_component_1 = require("./app.component");
 var ng_bootstrap_1 = require('@ng-bootstrap/ng-bootstrap');
-//import {Alert} from 'ng2-bootstrap/ng2-bootstrap';
 var plan_component_1 = require("./plan.component");
 var class_list_component_1 = require("./class-list.component");
+var cart_component_1 = require("./cart.component");
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, ng_bootstrap_1.NgbModule.forRoot()],
-            declarations: [table_component_1.InfoComponent, app_component_1.AppComponent, plan_component_1.PlanComponent, class_list_component_1.ListComponent],
+            declarations: [table_component_1.InfoComponent, app_component_1.AppComponent, plan_component_1.PlanComponent, class_list_component_1.ListComponent, cart_component_1.CartComponent],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

@@ -15,7 +15,6 @@ var PlanComponent = (function () {
     PlanComponent = __decorate([
         core_1.Component({
             selector: 'plan',
-            styleUrls: ['public/javascripts/app/table.component.css'],
             templateUrl: 'public/javascripts/app/plan.component.html'
         }), 
         __metadata('design:paramtypes', [])
