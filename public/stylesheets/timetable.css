@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
+`
 
 body {
     font-family: "Roboto", helvetica, arial, sans-serif;
@@ -16,6 +16,10 @@ body {
     margin-right: 10px;
 }
 
+#timetable_work_space{
+    float : left;
+    padding-left : 100px;
+}
 #timetable_work_space th {
     color:#D5DDE5;
     background:#1b1e24;
@@ -30,11 +34,11 @@ body {
 }
 
 #timetable_work_space .noshow {
-    width: 0px;
+    width: 0;
     height: 15px;
-    padding: 0px;
-    border-right: 0px;
-    border-bottom: 0px;
+    padding: 0;
+    border-right: 0;
+    border-bottom: 0;
 }
 
 #timetable_work_space td {
@@ -174,7 +178,7 @@ div.table-title {
 }
 
 #lecture_list td:last-child {
-    border-right: 0px;
+    border-right: 0;
 }
 
 footer {
@@ -183,4 +187,17 @@ footer {
     padding: 20px;
 
     text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+}
+
+
+.table-fill {
+    background: white;
+    border-radius:3px;
+    border-collapse: collapse;
+    margin: auto;
+    max-width: 1800px;
+    padding:5px;
+    width: 100%;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    animation: float 5s infinite;
 }
