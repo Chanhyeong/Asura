@@ -20,7 +20,7 @@ var TableComponent = (function () {
     TableComponent = __decorate([
         core_1.Component({
             selector: 'class-info',
-            templateUrl: 'public/javascripts/app/table.component.html',
+            templateUrl: 'public/javascripts/app/class.info.component.html',
         }), 
         __metadata('design:paramtypes', [])
     ], TableComponent);

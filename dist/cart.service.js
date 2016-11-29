@@ -9,17 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AppComponent = (function () {
-    function AppComponent() {
+var CartService = (function () {
+    function CartService() {
     }
-    AppComponent = __decorate([
-        core_1.Component({
-            selector: 'asura-app',
-            template: "\n<div id=\"timetable_work_space\">\n    <plan></plan>\n    <cart></cart>\n    </div>\n    <class-info></class-info>\n    "
-        }), 
+    CartService.prototype.getCart = function () {
+        /*이 부분을 ajax를 이용해서 data를 요청할 것
+         node에서는 RSET API로 data를 뿌려주도록 한다
+
+         back-end server에서 cart data를 가져오므로
+         Asynchronus하게 작동하도록 Promise return 방식을 사용해야한다.
+        */
+    };
+    CartService = __decorate([
+        core_1.Injectable(), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], CartService);
+    return CartService;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.CartService = CartService;
+//# sourceMappingURL=cart.service.js.map

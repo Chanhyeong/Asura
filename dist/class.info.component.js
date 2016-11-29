@@ -9,17 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AppComponent = (function () {
-    function AppComponent() {
+var cart_service_1 = require('./cart.service');
+var ClassInfoComponent = (function () {
+    function ClassInfoComponent(cartService) {
+        this.cartService = cartService;
     }
-    AppComponent = __decorate([
+    ClassInfoComponent.prototype.getCart = function () {
+        this.cartService.getCart().then();
+    };
+    ClassInfoComponent = __decorate([
         core_1.Component({
-            selector: 'asura-app',
-            template: "\n<div id=\"timetable_work_space\">\n    <plan></plan>\n    <cart></cart>\n    </div>\n    <class-info></class-info>\n    "
+            selector: 'class-info',
+            templateUrl: 'public/javascripts/app/class.info.component.html',
+            providers: [cart_service_1.CartService]
         }), 
-        __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+        __metadata('design:paramtypes', [cart_service_1.CartService])
+    ], ClassInfoComponent);
+    return ClassInfoComponent;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.ClassInfoComponent = ClassInfoComponent;
+//# sourceMappingURL=class.info.component.js.map

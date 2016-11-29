@@ -9,15 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var cart_service_1 = require('./cart.service');
 var CartComponent = (function () {
-    function CartComponent() {
+    function CartComponent(cartService) {
+        this.cartService = cartService;
     }
+    CartComponent.prototype.getCart = function () {
+        this.cartService.getCart().then();
+    };
     CartComponent = __decorate([
         core_1.Component({
             selector: 'cart',
-            templateUrl: 'public/javascripts/app/cart.component.html'
+            templateUrl: 'public/javascripts/app/cart.component.html',
+            providers: [cart_service_1.CartService]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [cart_service_1.CartService])
     ], CartComponent);
     return CartComponent;
 }());

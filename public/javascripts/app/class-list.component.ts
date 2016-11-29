@@ -24,7 +24,7 @@ import { Lecture } from './lecture'
       </tr>
     </thead>
     <tbody class="table-hover">
-    <tr *ngFor="let lecture of lectures">
+    <tr *ngFor="let lecture of lectures" (click)="onSelect(lecture)">
         <td class="code">{{lecture.code}}</td>
         <td class="department">{{lecture.department}}</td>
         <td class="major">{{lecture.major}}</td>
@@ -46,6 +46,11 @@ import { Lecture } from './lecture'
 })
 export class ListComponent {
     lectures=LECTURES;
+    selectedLecture: Lecture;
+
+    onSelect(lecture : Lecture){
+        this.selectedLecture = lecture;
+    }
 }
 
 

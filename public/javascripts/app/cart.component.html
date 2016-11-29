@@ -1,15 +1,28 @@
-<table class="table-fill">
+<table class="table-cart">
     <thead>
     <tr>
-        <th class="">수강번호</th>
-        <th class="">개설학부</th>
-        <th class="">과목분류</th>
-        <th class="">과목명</th>
-        <th class="">학점</th>
-        <th class="">시간</th>
-        <th class="">교수명</th>
-        <th class="">강의 시간</th>
-        <th class="">정원</th>
+        <th class="code">수강번호</th>
+        <th class="department">개설학부</th>
+        <th class="category">과목분류</th>
+        <th class="title">과목명</th>
+        <th class="point">학점</th>
+        <th class="time">시간</th>
+        <th class="professor">교수명</th>
+        <th class="timetable">강의 시간</th>
+        <th class="total">정원</th>
     </tr>
     </thead>
+    <tbody *ngIf="carts">
+    <tr *ngFor="let list of carts">
+        <td class="code">{{list.code}}</td>
+        <td class="department">{{list.department}}</td>
+        <td class="category">{{list.category}}</td>
+        <td class="title">{{list.krTitle}}</td>
+        <td class="point">{{list.point}}</td>
+        <td class="time">{{list.time}}</td>
+        <td class="professor">{{list.professor}}</td>
+        <td class="timetable">{{list.timetable}}</td>
+        <td class="total">{{list.total}}</td>
+    </tr>
+    </tbody>
 </table>
