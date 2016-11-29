@@ -5,13 +5,10 @@ import { Lecture } from './lecture'
 @Component({
     selector: 'asura-app',
     template: `
-    <ul>
-        <li *ngFor="let cart of carts">
-          {{cart.professor}}
-        </li> 
-    </ul>
+<div id="timetable_work_space">
     <plan></plan>
-    <cart></cart>   
+    <cart></cart>
+    </div>
     <class-info></class-info>
     `,
     providers: [ CartService ]

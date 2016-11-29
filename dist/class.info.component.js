@@ -9,29 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var lecture_data_1 = require('./lecture-data');
 var cart_service_1 = require('./cart.service');
-var TableComponent = (function () {
-    function TableComponent(cartService) {
+var ClassInfoComponent = (function () {
+    function ClassInfoComponent(cartService) {
         this.cartService = cartService;
-        this.lectures = lecture_data_1.LECTURES;
     }
-    TableComponent.prototype.getCart = function () {
+    ClassInfoComponent.prototype.getCart = function () {
         // this.cartService.getCart().then();
     };
-    TableComponent = __decorate([
+    ClassInfoComponent = __decorate([
         core_1.Component({
             selector: 'class-info',
-<<<<<<< HEAD
-            templateUrl: 'public/javascripts/app/table.component.html',
-            providers: [cart_service_1.CartService]
-=======
             templateUrl: 'public/javascripts/app/class.info.component.html',
->>>>>>> e2802329f1941c81e40cec4759a92a4c707214a6
+            providers: [cart_service_1.CartService]
         }), 
         __metadata('design:paramtypes', [cart_service_1.CartService])
-    ], TableComponent);
-    return TableComponent;
+    ], ClassInfoComponent);
+    return ClassInfoComponent;
 }());
-exports.TableComponent = TableComponent;
-//# sourceMappingURL=table.component.js.map
+exports.ClassInfoComponent = ClassInfoComponent;
+//# sourceMappingURL=class.info.component.js.map

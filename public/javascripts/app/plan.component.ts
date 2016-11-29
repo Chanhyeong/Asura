@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CartService } from './cart.service';
 @Component({
     selector: 'plan',
-    templateUrl: 'public/javascripts/app/plan2.component.html',
+    templateUrl: 'public/javascripts/app/plan.component.html',
     providers: [ CartService ]
 })
 export class PlanComponent {
@@ -17,8 +17,6 @@ export class PlanComponent {
     getCart(): void{
         this.cartService.getCart().then();
     }
-
-
 }
 
 

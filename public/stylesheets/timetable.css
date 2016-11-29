@@ -16,9 +16,10 @@ body {
 }
 
 #timetable_work_space{
-    float : left;
-    padding-left : 100px;
+    text-align: center;
+    vertical-align: text-top;
 }
+
 #timetable_work_space th {
     color:#D5DDE5;
     background:#1b1e24;
@@ -30,6 +31,14 @@ body {
     text-align:center;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
     vertical-align:middle;
+}
+
+#timetable_work_space th:first-child {
+    border-top-left-radius:3px;
+}
+
+#timetable_work_space th:last-child {
+    border-top-right-radius:3px;
 }
 #timetable_work_space .noshow {
     width: 0;
@@ -51,19 +60,41 @@ body {
     border-bottom: 1px solid #C1C3D1;
 }
 
-.time_table_time_alphabet{
-    border-left: 1px solid #C1C3D1;
+#time_table_space tr:hover td {
+    background:#4E5066;
+    color:#FFFFFF;
 }
 
-#timetable_work_space{
-    margin-left: 50px;
-    text-align: left;
+#time_table_space tr:first-child {
+    border-top:none;
+}
+
+#time_table_space tr:last-child {
+    border-bottom:none;
+}
+
+#time_table_space tr:nth-child(odd) td {
+    background:#EBEBEB;
+}
+
+#time_table_space tr:nth-child(odd):hover td {
+    background:#4E5066;
+}
+
+.time_table_time_alphabet{
+    border-left: 1px solid #C1C3D1;
 }
 
 /* 두 개의 div가 한 열에 표시, div간 간격 제거*/
 .time_table_time, .time_table_class{
     display:inline-block;
     margin: 0 -4px 0 0;
+}
+
+plan, cart{
+    display:inline-block;
+    vertical-align: middle;
+    margin: 0 50px 0 0;
 }
 
 .time_table_class th{
@@ -96,8 +127,7 @@ div.table-title {
 /* 두 개의 div가 한 열에 표시, div간 간격 제거*/
 
 .search{
-    margin-right: 50px;
-    text-align: right;
+    text-align: center;
 }
 
 .search div{
@@ -109,7 +139,7 @@ div.table-title {
     background: white;
     border-radius:3px;
     border-collapse: collapse;
-    max-width: 1480px;
+    max-width: 1435px;
     margin: auto;
     padding:5px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
@@ -119,12 +149,12 @@ div.table-title {
 }
 
 .table-fill thead{
-    max-width: 1460px;
+    max-width: 1415px;
 }
 
 .table-fill tbody{
     display: block;
-    max-width: 1480px;
+    max-width: 1435px;
     height: 150px;
     overflow-y: scroll;
     width: 100%;
@@ -192,31 +222,27 @@ div.table-title {
     border-right: 1px solid #C1C3D1;
 }
 
-#lecture_list td:last-child {
-    border-right: 0;
-}
-
 .table-fill td:last-child {
     border-right: 0;
 
 }
 
-.table-fill .abeek, .point, .time, .total, .leftSeat, .add, .enLecture, .code{
+.abeek, .point, .time, .total, .leftSeat, .enLecture, .code{
     width: 45px;
 }
 
-.table-fill .professor{
+.professor{
     width: 88px;
 }
 
-.table-fill .category{
+.category{
     width: 100px;
 }
-.table-fill .department, .major{
+.department, .major{
     width: 150px;
 }
 
-.table-fill .timetable, .title, .enTitle{
+.timetable, .title, .enTitle{
     width: 200px;
 }
 
@@ -226,17 +252,4 @@ footer {
     padding: 20px;
 
     text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
-}
-
-
-.table-fill {
-    background: white;
-    border-radius:3px;
-    border-collapse: collapse;
-    margin: auto;
-    max-width: 1800px;
-    padding:5px;
-    width: 100%;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    animation: float 5s infinite;
 }

@@ -24,7 +24,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'asura-app',
-            template: "\n    <ul>\n        <li *ngFor=\"let cart of carts\">\n          {{cart.professor}}\n        </li> \n    </ul>\n    <plan></plan>\n    <cart></cart>   \n    <class-info></class-info>\n    ",
+            template: "\n<<<<<<< HEAD\n    <ul>\n        <li *ngFor=\"let cart of carts\">\n          {{cart.professor}}\n        </li> \n    </ul>\n    <plan></plan>\n    <cart></cart>   \n=======\n<div id=\"timetable_work_space\">\n    <plan></plan>\n    <cart></cart>\n    </div>\n>>>>>>> e2802329f1941c81e40cec4759a92a4c707214a6\n    <class-info></class-info>\n    ",
             providers: [cart_service_1.CartService]
         }), 
         __metadata('design:paramtypes', [cart_service_1.CartService])
