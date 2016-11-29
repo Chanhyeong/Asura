@@ -12,6 +12,7 @@ var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
 var http_1 = require('@angular/http');
+var class_info_component_1 = require("./class.info.component");
 var app_component_1 = require("./app.component");
 var ng_bootstrap_1 = require('@ng-bootstrap/ng-bootstrap');
 var plan_component_1 = require("./plan.component");
@@ -29,7 +30,7 @@ var AppModule = (function () {
                 http_1.JsonpModule
             ],
             declarations: [
-                TableComponent,
+                class_info_component_1.ClassInfoComponent,
                 app_component_1.AppComponent,
                 plan_component_1.PlanComponent,
                 cart_component_1.CartComponent
