@@ -8,21 +8,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-/**
- * Created by chanhyeong on 2016-11-21.
- */
 var core_1 = require('@angular/core');
 var lecture_data_1 = require('./lecture-data');
+var cart_service_1 = require('./cart.service');
 var TableComponent = (function () {
-    function TableComponent() {
+    function TableComponent(cartService) {
+        this.cartService = cartService;
         this.lectures = lecture_data_1.LECTURES;
     }
+    TableComponent.prototype.getCart = function () {
+        // this.cartService.getCart().then();
+    };
     TableComponent = __decorate([
         core_1.Component({
             selector: 'class-info',
             templateUrl: 'public/javascripts/app/table.component.html',
+            providers: [cart_service_1.CartService]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [cart_service_1.CartService])
     ], TableComponent);
     return TableComponent;
 }());

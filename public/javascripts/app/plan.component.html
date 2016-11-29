@@ -38,7 +38,7 @@
                 <td rowspan="3" class="time_table_time_alphabet">A</td>
                 <td rowspan="2" class="time_table_time_hour">1교시</td>
                 <td rowspan="2" class="time_table_time_hour">9시</td>
-                <td class="noshow"></td>
+                    <td class="noshow"></td>
             </tr>
             <tr>
                 <td class="noshow"></td>
@@ -179,7 +179,7 @@
                 <th>토</th>
             </tr>
             </thead>
-            <tbody>
+              <tbody>
             <tr ng-repeat="times in workspace.preview_table_cells track by $index" class="ng-scope">
                 <td ajt-preview-cell="" ng-init="cell.share={}; cell.share.value=0;"
                     ng-repeat="cell in times track by $index" class="ng-scope"></td>

@@ -14,7 +14,7 @@ export class TableComponent {
 
     constructor (private cartService: CartService){}
     getCart(): void{
-        this.cartService.getCart().then();
+       // this.cartService.getCart().then();
     }
-}
+
 }

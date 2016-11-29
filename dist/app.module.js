@@ -11,19 +11,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
+var http_1 = require('@angular/http');
 var table_component_1 = require("./table.component");
 var app_component_1 = require("./app.component");
 var ng_bootstrap_1 = require('@ng-bootstrap/ng-bootstrap');
 var plan_component_1 = require("./plan.component");
-var class_list_component_1 = require("./class-list.component");
 var cart_component_1 = require("./cart.component");
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, ng_bootstrap_1.NgbModule.forRoot()],
-            declarations: [table_component_1.TableComponent, app_component_1.AppComponent, plan_component_1.PlanComponent, class_list_component_1.ListComponent, cart_component_1.CartComponent],
+            imports: [
+                platform_browser_1.BrowserModule,
+                forms_1.FormsModule,
+                ng_bootstrap_1.NgbModule.forRoot(),
+                http_1.HttpModule,
+                http_1.JsonpModule
+            ],
+            declarations: [
+                table_component_1.TableComponent,
+                app_component_1.AppComponent,
+                plan_component_1.PlanComponent,
+                cart_component_1.CartComponent
+            ],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

@@ -9,15 +9,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var cart_service_1 = require('./cart.service');
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(cartService) {
+        this.cartService = cartService;
     }
+    AppComponent.prototype.ngOnInit = function () {
+        this.getCart();
+    };
+    AppComponent.prototype.getCart = function () {
+        var _this = this;
+        this.cartService.getCart().then(function (carts) { return _this.carts = carts; });
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'asura-app',
-            template: "\n    <plan></plan>\n    <cart></cart>\n    <class-info></class-info>\n    "
+            template: "\n    <ul>\n        <li *ngFor=\"let cart of carts\">\n          {{cart.professor}}\n        </li> \n    </ul>\n    <plan></plan>\n    <cart></cart>   \n    <class-info></class-info>\n    ",
+            providers: [cart_service_1.CartService]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [cart_service_1.CartService])
     ], AppComponent);
     return AppComponent;
 }());

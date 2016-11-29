@@ -57,6 +57,9 @@ body {
     border-left: 1px solid #C1C3D1;
 }
 
+.time_table_cell{
+    width: 100px;
+}
 #timetable_work_space{
     text-align: center;
 }

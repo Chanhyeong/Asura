@@ -50,7 +50,11 @@ router.post('/login',
         failureFlash: true
     })
 );
+router.post('/login/:id',function(req,res,next){
 
+
+
+});
 router.post('/signup',
     passport.authenticate('local-signup', {
         successRedirect : '/profile',

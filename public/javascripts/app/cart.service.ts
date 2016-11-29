@@ -1,17 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Lecture } from './lecture'
+import { Headers, Http } from '@angular/http';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class CartService {
 
-    getCart(): void{
-
-
-        /*이 부분을 ajax를 이용해서 data를 요청할 것
-         node에서는 RSET API로 data를 뿌려주도록 한다
-
-         back-end server에서 cart data를 가져오므로
-         Asynchronus하게 작동하도록 Promise return 방식을 사용해야한다.
-        */
+    private CartUrl: string = 'http://localhost:8080/profile/'; // URL to Web API
+    constructor(private http: Http) {}
+    getCart(): Promise<Lecture[]> {
+        return this.http.get(this.CartUrl)
+            .toPromise()
+            .then(response => response.json().data as Lecture[])
+            .catch(this.handleError);
+    }
+    handleError(error: any): Promise<any> {
+        console.error('An error occurred', error); // for demo purposes only
+        return Promise.reject(error.message || error);
     }
 }
