@@ -21,7 +21,6 @@ import { Lecture } from './lecture'
         <th class="enLecture">영어 강의</th>
         <th class="total">정원</th>
         <th class="leftSeat">여석</th>
-        <th class="add">추가</th>
       </tr>
     </thead>
     <tbody class="table-hover">
@@ -40,7 +39,6 @@ import { Lecture } from './lecture'
         <td class="enLecture">{{lecture.enLecture}}</td>
         <td class="total">{{lecture.total}}</td>
         <td class="leftSeat"></td>
-        <td class="add"></td>
     </tr>
     </tbody>
     </table>

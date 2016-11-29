@@ -108,7 +108,7 @@ div.table-title {
     background: white;
     border-radius:3px;
     border-collapse: collapse;
-    max-width: 1480px;
+    max-width: 1435px;
     margin: auto;
     padding:5px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
@@ -118,12 +118,12 @@ div.table-title {
 }
 
 .table-fill thead{
-    max-width: 1460px;
+    max-width: 1415px;
 }
 
 .table-fill tbody{
     display: block;
-    max-width: 1480px;
+    max-width: 1435px;
     height: 150px;
     overflow-y: scroll;
     width: 100%;
@@ -200,7 +200,7 @@ div.table-title {
 
 }
 
-.table-fill .abeek, .point, .time, .total, .leftSeat, .add, .enLecture, .code{
+.table-fill .abeek, .point, .time, .total, .leftSeat, .enLecture, .code{
     width: 45px;
 }
 
