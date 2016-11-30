@@ -27,8 +27,11 @@ export class AppComponent implements OnInit {
         }
     }
     deleteCart(lecture : Lecture){
-        var index = this.cart.indexOf(lecture);
-        this.cart.splice(index, 1);
+        if (confirm('책가방에서 삭제 하시겠습니까?')) {
+            var index = this.cart.indexOf(lecture);
+            this.cart.splice(index, 1);
+        }
+
     }
 
 }

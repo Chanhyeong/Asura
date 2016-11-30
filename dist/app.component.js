@@ -29,8 +29,10 @@ var AppComponent = (function () {
         }
     };
     AppComponent.prototype.deleteCart = function (lecture) {
-        var index = this.cart.indexOf(lecture);
-        this.cart.splice(index, 1);
+        if (confirm('')) {
+            var index = this.cart.indexOf(lecture);
+            this.cart.splice(index, 1);
+        }
     };
     AppComponent = __decorate([
         core_1.Component({
