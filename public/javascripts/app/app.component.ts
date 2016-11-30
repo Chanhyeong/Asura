@@ -11,7 +11,7 @@ import { Lecture } from './lecture'
 export class AppComponent implements OnInit {
     constructor (private cartService: CartService){}
     lectures : Lecture[];
-    cart : Lecture[];
+    cart : Lecture[] = [];
     sel : Lecture;
     ngOnInit(): void {
         this.getCart();
@@ -21,10 +21,10 @@ export class AppComponent implements OnInit {
             .then(lectures => this.lectures = lectures);
     }
     addToCart(lecture : Lecture){
-        console.log(lecture);
+        console.log(lecture.professor);
         this.cart.push(lecture);
-        this.sel = lecture;
     }
+
 }
 
 

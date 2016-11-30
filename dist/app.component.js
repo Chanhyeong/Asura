@@ -13,6 +13,7 @@ var cart_service_1 = require('./cart.service');
 var AppComponent = (function () {
     function AppComponent(cartService) {
         this.cartService = cartService;
+        this.cart = [];
     }
     AppComponent.prototype.ngOnInit = function () {
         this.getCart();
@@ -23,9 +24,8 @@ var AppComponent = (function () {
             .then(function (lectures) { return _this.lectures = lectures; });
     };
     AppComponent.prototype.addToCart = function (lecture) {
-        console.log(lecture);
+        console.log(lecture.professor);
         this.cart.push(lecture);
-        this.sel = lecture;
     };
     AppComponent = __decorate([
         core_1.Component({
