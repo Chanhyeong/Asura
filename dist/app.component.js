@@ -24,8 +24,13 @@ var AppComponent = (function () {
             .then(function (lectures) { return _this.lectures = lectures; });
     };
     AppComponent.prototype.addToCart = function (lecture) {
-        console.log(lecture.professor);
-        this.cart.push(lecture);
+        if (this.cart.indexOf(lecture) == -1) {
+            this.cart.push(lecture);
+        }
+    };
+    AppComponent.prototype.deleteCart = function (lecture) {
+        var index = this.cart.indexOf(lecture);
+        this.cart.splice(index, 1);
     };
     AppComponent = __decorate([
         core_1.Component({

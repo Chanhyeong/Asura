@@ -20,9 +20,15 @@ export class AppComponent implements OnInit {
         this.cartService.getLectures()
             .then(lectures => this.lectures = lectures);
     }
+
     addToCart(lecture : Lecture){
-        console.log(lecture.professor);
-        this.cart.push(lecture);
+        if(this.cart.indexOf(lecture) == -1){
+            this.cart.push(lecture);
+        }
+    }
+    deleteCart(lecture : Lecture){
+        var index = this.cart.indexOf(lecture);
+        this.cart.splice(index, 1);
     }
 
 }
