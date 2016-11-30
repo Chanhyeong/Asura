@@ -24,7 +24,8 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.addToCart = function (lecture) {
         console.log(lecture);
-        this.carts.push(lecture);
+        this.cart.push(lecture);
+        this.sel = lecture;
     };
     AppComponent = __decorate([
         core_1.Component({
