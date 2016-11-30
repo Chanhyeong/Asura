@@ -13,12 +13,8 @@ var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
 var http_1 = require('@angular/http');
 var angular2_datatable_1 = require("angular2-datatable");
-var class_info_component_1 = require("./class.info.component");
 var app_component_1 = require("./app.component");
 var ng_bootstrap_1 = require('@ng-bootstrap/ng-bootstrap');
-var plan_component_1 = require("./plan.component");
-var class_list_component_1 = require("./class.list.component");
-var cart_component_1 = require("./cart.component");
 var data_filter_pipe_1 = require("./data-filter.pipe");
 var AppModule = (function () {
     function AppModule() {
@@ -34,11 +30,7 @@ var AppModule = (function () {
                 angular2_datatable_1.DataTableModule
             ],
             declarations: [
-                class_list_component_1.ClassListComponent,
-                class_info_component_1.ClassInfoComponent,
                 app_component_1.AppComponent,
-                plan_component_1.PlanComponent,
-                cart_component_1.CartComponent,
                 data_filter_pipe_1.DataFilterPipe
             ],
             bootstrap: [app_component_1.AppComponent]

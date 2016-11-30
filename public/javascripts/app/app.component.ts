@@ -4,24 +4,24 @@ import { Lecture } from './lecture'
 
 @Component({
     selector: 'asura-app',
-    template: `
-<div id="timetable_work_space">
-    <plan></plan>
-    <cart></cart>
-    </div>
-    <class-info></class-info>
-    `,
+    templateUrl : 'public/javascripts/app/timetable.html',
     providers: [ CartService ]
 
 })
 export class AppComponent implements OnInit {
     constructor (private cartService: CartService){}
+    lectures : Lecture[];
     carts : Lecture[];
     ngOnInit(): void {
         this.getCart();
     }
     getCart(): void{
-        this.cartService.getCart().then(carts => this.carts = carts);
+        this.cartService.getLectures()
+            .then(lectures => this.lectures = lectures);
+    }
+    addToCart(lecture : Lecture){
+        console.log(lecture);
+        this.carts.push(lecture);
     }
 }
 

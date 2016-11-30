@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var lecture_data_1 = require('./lecture-data');
 var http_1 = require('@angular/http');
 require('rxjs/add/operator/toPromise');
 var CartService = (function () {
@@ -16,11 +17,15 @@ var CartService = (function () {
         this.http = http;
         this.CartUrl = 'http://localhost:8080/profile/'; // URL to Web API
     }
-    CartService.prototype.getCart = function () {
+    /*getCart(): Promise<Lecture[]> {
         return this.http.get(this.CartUrl)
             .toPromise()
-            .then(function (response) { return response.json().data; })
+            .then(response => response.json().data as Lecture[])
             .catch(this.handleError);
+    }
+    */
+    CartService.prototype.getLectures = function () {
+        return Promise.resolve(lecture_data_1.LECTURES);
     };
     CartService.prototype.handleError = function (error) {
         console.error('An error occurred', error); // for demo purposes only

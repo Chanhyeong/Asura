@@ -19,12 +19,17 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.getCart = function () {
         var _this = this;
-        this.cartService.getCart().then(function (carts) { return _this.carts = carts; });
+        this.cartService.getLectures()
+            .then(function (lectures) { return _this.lectures = lectures; });
+    };
+    AppComponent.prototype.addToCart = function (lecture) {
+        console.log(lecture);
+        this.carts.push(lecture);
     };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'asura-app',
-            template: "\n<div id=\"timetable_work_space\">\n    <plan></plan>\n    <cart></cart>\n    </div>\n    <class-info></class-info>\n    ",
+            templateUrl: 'public/javascripts/app/timetable.html',
             providers: [cart_service_1.CartService]
         }), 
         __metadata('design:paramtypes', [cart_service_1.CartService])

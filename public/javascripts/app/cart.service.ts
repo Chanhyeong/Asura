@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Lecture } from './lecture'
+import { LECTURES } from './lecture-data'
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
@@ -8,11 +9,15 @@ export class CartService {
 
     private CartUrl: string = 'http://localhost:8080/profile/'; // URL to Web API
     constructor(private http: Http) {}
-    getCart(): Promise<Lecture[]> {
+    /*getCart(): Promise<Lecture[]> {
         return this.http.get(this.CartUrl)
             .toPromise()
             .then(response => response.json().data as Lecture[])
             .catch(this.handleError);
+    }
+    */
+    getLectures(): Promise<Lecture[]> {
+        return Promise.resolve(LECTURES);
     }
     handleError(error: any): Promise<any> {
         console.error('An error occurred', error); // for demo purposes only
