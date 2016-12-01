@@ -21,6 +21,11 @@ Schema.createSchema = function(mongoose) {
 	    , provider: {type: String, 'default':''}
 	    , authToken: {type: String, 'default':''}
 	    , facebook: {}
+		, planA : {type: Array, index: 'hashed', 'default':[-1]}
+		, planB : {type: Array, index: 'hashed', 'default':[-1]}
+		, planC : {type: Array, index: 'hashed', 'default':[-1]}
+		, planD : {type: Array, index: 'hashed', 'default':[-1]}
+		, planE : {type: Array, index: 'hashed', 'default':[-1]}
 	});
 	
 	// password를 virtual 메소드로 정의 : MongoDB에 저장되지 않는 편리한 속성임. 특정 속성을 지정하고 set, get 메소드를 정의함
