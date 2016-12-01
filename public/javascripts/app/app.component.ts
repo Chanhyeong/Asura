@@ -4,7 +4,7 @@ import { Lecture } from './lecture'
 
 @Component({
     selector: 'asura-app',
-    templateUrl : 'public/javascripts/app/timetable.html',
+    templateUrl : 'public/javascripts/app/timetable2.html',
     providers: [ CartService ]
 
 })
@@ -31,8 +31,8 @@ export class AppComponent implements OnInit {
             var index = this.cart.indexOf(lecture);
             this.cart.splice(index, 1);
         }
-
     }
+
 
 }
 

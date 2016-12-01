@@ -33,15 +33,15 @@ router.get('/profile', function (req, res,next) {
         res.redirect('/');
     }
     else {
+        console.log("성공!");
         console.log(req.user);
         if (Array.isArray(req.user)) {
-            res.render('profile', {title: "로그인 성공!!!", user: req.user[0]._doc});
+           // res.render('profile', {title: "로그인 성공!!!", user: req.user[0]._doc});
         } else {
-            res.render('profile', {title: "로그인 성공!!", user: req.user});
+           //res.render('profile', {title: "로그인 성공!!", user: req.user});
         }
     }
 });
-
 
 router.post('/login',
     passport.authenticate('local-login', {

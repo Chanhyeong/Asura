@@ -15,15 +15,14 @@ require('rxjs/add/operator/toPromise');
 var CartService = (function () {
     function CartService(http) {
         this.http = http;
-        this.CartUrl = 'http://localhost:8080/profile/'; // URL to Web API
+        this.CartUrl = 'http://localhost:8080/cart/:id'; // URL to Web API
     }
-    /*getCart(): Promise<Lecture[]> {
+    CartService.prototype.getCart = function () {
         return this.http.get(this.CartUrl)
             .toPromise()
-            .then(response => response.json().data as Lecture[])
+            .then(function (response) { return response.json().data; })
             .catch(this.handleError);
-    }
-    */
+    };
     CartService.prototype.getLectures = function () {
         return Promise.resolve(lecture_data_1.LECTURES);
     };

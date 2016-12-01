@@ -7,15 +7,14 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class CartService {
 
-    private CartUrl: string = 'http://localhost:8080/profile/'; // URL to Web API
+    private CartUrl: string = 'http://localhost:8080/cart/:id'; // URL to Web API
     constructor(private http: Http) {}
-    /*getCart(): Promise<Lecture[]> {
+    getCart(): Promise<Lecture[]> {
         return this.http.get(this.CartUrl)
             .toPromise()
             .then(response => response.json().data as Lecture[])
             .catch(this.handleError);
     }
-    */
     getLectures(): Promise<Lecture[]> {
         return Promise.resolve(LECTURES);
     }
