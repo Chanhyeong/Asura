@@ -29,7 +29,7 @@ var AppComponent = (function () {
         }
     };
     AppComponent.prototype.deleteCart = function (lecture) {
-        if (confirm('')) {
+        if (confirm('책가방에서 삭제 하시겠습니까?')) {
             var index = this.cart.indexOf(lecture);
             this.cart.splice(index, 1);
         }

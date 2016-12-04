@@ -18,7 +18,7 @@ var DataFilterPipe = (function () {
     }
     DataFilterPipe.prototype.transform = function (array, query) {
         if (query) {
-            return _.filter(array, function (row) { return row.title.indexOf(query) > -1; });
+            return _.filter(array, function (row) { return row.krTitle.indexOf(query) > -1; });
         }
         return array;
     };

@@ -31,9 +31,18 @@ export class AppComponent implements OnInit {
             var index = this.cart.indexOf(lecture);
             this.cart.splice(index, 1);
         }
-
     }
 
+    // result(lecture){
+    //     return _.map(_.uniqBy(lecture, "major"))
+    // }
+
+    queryTitle: string;
+    byMajor: string;
+    startDate: string;
+    startTime: string;
+    endDate: string;
+    endTime: string;
 }
 
 

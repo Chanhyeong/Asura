@@ -651,7 +651,7 @@
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                 <li><a href="#">temp</a></li>
                 <li><a href="#">temp</a></li>
-                <li><a href="#">temp</a>np</li>
+                <li><a href="#">temp</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="#">temp</a></li>
             </ul>
@@ -662,11 +662,7 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li><a href="#">temp</a></li>
-                <li><a href="#">temp</a></li>
-                <li><a href="#">temp</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">temp</a></li>
+                <li *ngFor="let lecture of lectures"><a href="#">{{lecture.major}}</a></li>
             </ul>
         </div>
         <div class="dropdown" id="findCategory">
@@ -675,11 +671,10 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu3">
-                <li><a href="#">temp</a></li>
-                <li><a href="#">temp</a></li>
-                <li><a href="#">temp</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">temp</a></li>
+                <li><a href="#" ngValue="전공과목">전공과목</a></li>
+                <li><a href="#" ngValue="기초과목">기초과목</a></li>
+                <li><a href="#" ngValue="교양과목">교양과목</a></li>
+                <li><a href="#" ngValue="영역별교양">영역별교양</a></li>
             </ul>
         </div>
         <div class="dropdown" id="findFirstDay">
@@ -735,10 +730,10 @@
             </ul>
         </div>
         <div class="searchByTitle">
-            <input class="form-control" [(ngModel)]="filterQuery"/>
+            <input class="form-control" [(ngModel)]="queryTitle"/>
         </div>
     </div>
-    <table class="table-fill" [mfData]="lectures | dataFilter : filterQuery" #mf="mfDataTable">
+    <table class="table-fill" [mfData]="lectures | dataFilter : queryTitle" #mf="mfDataTable">
         <thead>
         <tr>
             <th class="code">수강번호</th>
