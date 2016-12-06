@@ -4,7 +4,6 @@ import { FormsModule} from '@angular/forms';
 import { HttpModule,JsonpModule } from '@angular/http';
 import {DataTableModule} from "angular2-datatable";
 
-
 import { AppComponent } from "./app.component";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {DataFilterPipe} from "./data-filter.pipe"

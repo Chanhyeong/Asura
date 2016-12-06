@@ -8,32 +8,119 @@ import { Lecture } from './lecture'
     providers: [ CartService ]
 
 })
+
 export class AppComponent implements OnInit {
     constructor (private cartService: CartService){}
     lectures : Lecture[];
     cart : Lecture[] = [];
-    sel : Lecture;
+    day = {월 : 0,화: 1,수:2,목:3,금:4};
+    table = new Array(36);
+    check = new Array(36);
     ngOnInit(): void {
         this.getCart();
+        for(var i=0; i<36 ; i++){
+            this.table[i] = new Array(6);
+            this.check[i] = new Array(6).fill(false);
+        }
     }
     getCart(): void{
         this.cartService.getLectures()
             .then(lectures => this.lectures = lectures);
     }
 
-    addToCart(lecture : Lecture){
-        if(this.cart.indexOf(lecture) == -1){
-            this.cart.push(lecture);
+    addToCart(lecture : Lecture) : void {
+        // 중복 처리 후 가능할 경우
+        if (confirm('책가방에 추가 하시겠습니까?')) {
+            if (this.cart.indexOf(lecture) == -1) {
+                var string = lecture.timetable;
+                var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
+                var result = string.match(reg);
+                var _color = this.getRandomColor();
+                var slice = this.calculateTime(result);
+              // console.log(slice.length);
+                for (var w = 0; w < 2; w++) {
+                    for (var i = 0; i < slice.length; i++) {
+                        var y = this.day[slice[i].y];
+                        for (var x = slice[i].x1; x <= slice[i].x2; x++) {
+                            if (this.check[x][y] == true) {
+                                alert("시간이 중복되었습니다.");
+                                return;
+                            }
+                            if (w == 1) {
+                                this.table[x][y] = _color;
+                                console.log(x+','+y+','+this.table[x][y]);
+                                this.check[x][y] = true;
+                            }
+                        }
+                    }
+                }
+                this.cart.push(lecture);
+            }
         }
     }
-    deleteCart(lecture : Lecture){
+
+    deleteCart(lecture : Lecture) : void{
         if (confirm('책가방에서 삭제 하시겠습니까?')) {
+            var string = lecture.timetable;
+            var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
+            var result = string.match(reg);
+            var slice = this.calculateTime(result);
+            for (var i = 0; i < slice.length; i++) {
+                var y = this.day[slice[i].y];
+                for (var x = slice[i].x1; x <= slice[i].x2; x++) {
+                    this.table[x][y] = "#FFFFFF";
+                    this.check[x][y] = false;
+                }
+            }
             var index = this.cart.indexOf(lecture);
             this.cart.splice(index, 1);
         }
     }
 
 
+    getRandomColor() : string {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    calculateTime(info) {
+        var stack= new Array();
+        for (var index = 0; index < info.length; index++) {
+            var string = info[index];
+            var x1,x2,y = string[0];
+            var reg = /\w/g;
+            var result = string.match(reg);
+           // console.log(result);
+            if(result.length == 1){ // 0~15 or A~J
+                if ('A'.charCodeAt((0)) <= result[0].charCodeAt(0)
+                    && result[0].charCodeAt((0)) <= 'Z'.charCodeAt((0))) {
+                    x1 = 3*(result[0].charCodeAt(0)-'A'.charCodeAt(0))+2;
+                    stack.push({x1 : x1 , x2 : x1+2, y:y});
+                }
+                else{
+                    x1 = parseInt(result[0])*2;
+                    stack.push({x1 : x1, x2 : x1+1, y: y});
+                }
+            }
+            else if(result.length == 2){ // float
+                x1 = parseFloat(result[0])*2;
+                stack.push({x1 : x1, x2 : x1+1, y: y});
+            }
+            else{
+                x1 = (parseInt(result[0])-8)*2;
+                if(result[1][0] == '3')x1++;
+                x2 = (parseInt(result[2])-8)*2;
+                if(result[1][3] == '3')x2++;
+                stack.push({x1 : x1, x2 : x1+1, y: y});
+            }
+        }
+        console.log(stack.length);
+        return stack;
+    }
 }
 
 

@@ -254,3 +254,11 @@ footer {
 
     text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
 }
+
+#timetable_work_space .ng-scope{
+    font-size : 6px;
+    text-overflow: clip;
+    white-space: nowrap;
+    text-align: center;
+
+}

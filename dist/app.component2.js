@@ -32,47 +32,32 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.addToCart = function (lecture) {
         // 중복 처리 후 가능할 경우
-        if (confirm('책가방에 추가 하시겠습니까?')) {
-            if (this.cart.indexOf(lecture) == -1) {
-                var string = lecture.timetable;
-                var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
-                var result = string.match(reg);
-                var _color = this.getRandomColor();
-                var slice = this.calculateTime(result);
-                // console.log(slice.length);
-                for (var w = 0; w < 2; w++) {
-                    for (var i = 0; i < slice.length; i++) {
-                        var y = this.day[slice[i].y];
-                        for (var x = slice[i].x1; x <= slice[i].x2; x++) {
-                            if (this.check[x][y] == true) {
-                                alert("시간이 중복되었습니다.");
-                                return;
-                            }
-                            if (w == 1) {
-                                this.table[x][y] = _color;
-                                console.log(x + ',' + y + ',' + this.table[x][y]);
-                                this.check[x][y] = true;
-                            }
+        if (this.cart.indexOf(lecture) == -1) {
+            var string = lecture.timetable;
+            var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
+            var result = string.match(reg);
+            var _color = this.getRandomColor();
+            var slice = this.calculateTime(result);
+            for (var w = 0; w < 2; w++) {
+                for (var i = 0; i < slice.length; i++) {
+                    var y = slice[i].y;
+                    for (var x = slice[i].x1; x <= slice[i].x2; x++) {
+                        if (this.check[x][y] == true) {
+                            alert("시간이 중복되었습니다.");
+                            return;
+                        }
+                        if (w == 1) {
+                            this.table[x][y] = _color;
+                            this.check[x][y] = true;
                         }
                     }
                 }
-                this.cart.push(lecture);
             }
+            this.cart.push(lecture);
         }
     };
     AppComponent.prototype.deleteCart = function (lecture) {
         if (confirm('책가방에서 삭제 하시겠습니까?')) {
-            var string = lecture.timetable;
-            var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
-            var result = string.match(reg);
-            var slice = this.calculateTime(result);
-            for (var i = 0; i < slice.length; i++) {
-                var y = this.day[slice[i].y];
-                for (var x = slice[i].x1; x <= slice[i].x2; x++) {
-                    this.table[x][y] = "#FFFFFF";
-                    this.check[x][y] = false;
-                }
-            }
             var index = this.cart.indexOf(lecture);
             this.cart.splice(index, 1);
         }
@@ -85,18 +70,17 @@ var AppComponent = (function () {
         }
         return color;
     };
-    AppComponent.prototype.calculateTime = function (info) {
-        var stack = new Array();
-        for (var index = 0; index < info.length; index++) {
-            var string = info[index];
+    AppComponent.prototype.calculateTime = function (result) {
+        var stack = [];
+        for (var index = 0; index < result.length; index++) {
+            var string = result[index];
             var x1, x2, y = string[0];
             var reg = /\w/g;
             var result = string.match(reg);
-            // console.log(result);
             if (result.length == 1) {
                 if ('A'.charCodeAt((0)) <= result[0].charCodeAt(0)
                     && result[0].charCodeAt((0)) <= 'Z'.charCodeAt((0))) {
-                    x1 = 3 * (result[0].charCodeAt(0) - 'A'.charCodeAt(0)) + 2;
+                    x1 = 3 * (result[0].charCodeAt(0) - 'A'.charCodeAt(0));
                     stack.push({ x1: x1, x2: x1 + 2, y: y });
                 }
                 else {
@@ -105,7 +89,7 @@ var AppComponent = (function () {
                 }
             }
             else if (result.length == 2) {
-                x1 = parseFloat(result[0]) * 2;
+                x1 = parseInt(parseFloat(result[0]) * 2);
                 stack.push({ x1: x1, x2: x1 + 1, y: y });
             }
             else {
@@ -118,7 +102,6 @@ var AppComponent = (function () {
                 stack.push({ x1: x1, x2: x1 + 1, y: y });
             }
         }
-        console.log(stack.length);
         return stack;
     };
     AppComponent = __decorate([
@@ -132,4 +115,4 @@ var AppComponent = (function () {
     return AppComponent;
 }());
 exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+//# sourceMappingURL=app.component2.js.map
