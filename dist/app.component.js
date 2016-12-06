@@ -37,6 +37,10 @@ var AppComponent = (function () {
                 var string = lecture.timetable;
                 var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
                 var result = string.match(reg);
+                if (result.length == 0) {
+                    this.cart.push(lecture);
+                    return;
+                }
                 var _color = this.getRandomColor();
                 var slice = this.calculateTime(result);
                 // console.log(slice.length);
@@ -56,7 +60,11 @@ var AppComponent = (function () {
                         }
                     }
                 }
+                var index = this.cart.indexOf(lecture);
                 this.cart.push(lecture);
+            }
+            else {
+                alert("이미 책가방에 추가한 강의 입니다.");
             }
         }
     };
@@ -124,7 +132,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'asura-app',
-            templateUrl: 'public/javascripts/app/timetable2.html',
+            templateUrl: 'public/javascripts/app/timetable.html',
             providers: [cart_service_1.CartService]
         }), 
         __metadata('design:paramtypes', [cart_service_1.CartService])

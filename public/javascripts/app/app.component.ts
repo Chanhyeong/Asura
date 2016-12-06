@@ -4,7 +4,7 @@ import { Lecture } from './lecture'
 
 @Component({
     selector: 'asura-app',
-    templateUrl : 'public/javascripts/app/timetable2.html',
+    templateUrl : 'public/javascripts/app/timetable.html',
     providers: [ CartService ]
 
 })
@@ -29,15 +29,18 @@ export class AppComponent implements OnInit {
     }
 
     addToCart(lecture : Lecture) : void {
-        // 중복 처리 후 가능할 경우
+
         if (confirm('책가방에 추가 하시겠습니까?')) {
             if (this.cart.indexOf(lecture) == -1) {
                 var string = lecture.timetable;
                 var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
                 var result = string.match(reg);
+                if(result.length == 0){
+                    this.cart.push(lecture); return ;
+                }
                 var _color = this.getRandomColor();
                 var slice = this.calculateTime(result);
-              // console.log(slice.length);
+
                 for (var w = 0; w < 2; w++) {
                     for (var i = 0; i < slice.length; i++) {
                         var y = this.day[slice[i].y];
@@ -54,7 +57,11 @@ export class AppComponent implements OnInit {
                         }
                     }
                 }
+                var index = this.cart.indexOf(lecture);
                 this.cart.push(lecture);
+            }
+            else{
+                alert("이미 책가방에 추가한 강의 입니다.");
             }
         }
     }
@@ -64,6 +71,7 @@ export class AppComponent implements OnInit {
             var string = lecture.timetable;
             var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
             var result = string.match(reg);
+
             var slice = this.calculateTime(result);
             for (var i = 0; i < slice.length; i++) {
                 var y = this.day[slice[i].y];
@@ -94,7 +102,7 @@ export class AppComponent implements OnInit {
             var x1,x2,y = string[0];
             var reg = /\w/g;
             var result = string.match(reg);
-           // console.log(result);
+
             if(result.length == 1){ // 0~15 or A~J
                 if ('A'.charCodeAt((0)) <= result[0].charCodeAt(0)
                     && result[0].charCodeAt((0)) <= 'Z'.charCodeAt((0))) {
@@ -118,7 +126,6 @@ export class AppComponent implements OnInit {
                 stack.push({x1 : x1, x2 : x1+1, y: y});
             }
         }
-        console.log(stack.length);
         return stack;
     }
 }
