@@ -31,7 +31,6 @@ var AppComponent = (function () {
             .then(function (lectures) { return _this.lectures = lectures; });
     };
     AppComponent.prototype.addToCart = function (lecture) {
-        // 중복 처리 후 가능할 경우
         if (confirm('책가방에 추가 하시겠습니까?')) {
             if (this.cart.indexOf(lecture) == -1) {
                 var string = lecture.timetable;
@@ -43,7 +42,6 @@ var AppComponent = (function () {
                 }
                 var _color = this.getRandomColor();
                 var slice = this.calculateTime(result);
-                // console.log(slice.length);
                 for (var w = 0; w < 2; w++) {
                     for (var i = 0; i < slice.length; i++) {
                         var y = this.day[slice[i].y];
@@ -100,7 +98,6 @@ var AppComponent = (function () {
             var x1, x2, y = string[0];
             var reg = /\w/g;
             var result = string.match(reg);
-            // console.log(result);
             if (result.length == 1) {
                 if ('A'.charCodeAt((0)) <= result[0].charCodeAt(0)
                     && result[0].charCodeAt((0)) <= 'Z'.charCodeAt((0))) {
@@ -126,7 +123,6 @@ var AppComponent = (function () {
                 stack.push({ x1: x1, x2: x1 + 1, y: y });
             }
         }
-        console.log(stack.length);
         return stack;
     };
     AppComponent = __decorate([
