@@ -1,6 +1,8 @@
 import { Component,OnInit } from '@angular/core';
 import { CartService } from './cart.service';
 import { Lecture } from './lecture'
+import { LECTURES } from './lecture-data'
+import * as _ from "lodash";
 
 @Component({
     selector: 'asura-app',
@@ -11,16 +13,22 @@ import { Lecture } from './lecture'
 
 export class AppComponent implements OnInit {
     constructor (private cartService: CartService){}
-    lectures : Lecture[];
+    lectures = LECTURES;
     cart : Lecture[] = [];
     day = {월 : 0,화: 1,수:2, 목:3, 금:4};
     table = new Array(36);
+
+    departList : Lecture[];
+    majorList : Lecture[];
+
     ngOnInit(): void {
         this.getCart();
         for(var i=0; i<36 ; i++){
             this.table[i] = new Array(6).fill("#FFFFFF");
         }
-    }
+        this.departList = _.uniqBy(this.lectures, 'department');
+        this.majorList = _.uniqBy(this.lectures, 'major');
+            }
     getCart(): void{
         this.cartService.getLectures()
             .then(lectures => this.lectures = lectures);
@@ -86,11 +94,23 @@ export class AppComponent implements OnInit {
     // }
 
     queryTitle: string;
-    byMajor: string;
-    startDate: string;
-    startTime: string;
-    endDate: string;
-    endTime: string;
+    selectedDepart: string = "개설학과";
+    selectedMajor: string = "개설전공";
+    selectedCategory: string = "교과구분(과목분류)";
+    selectedDate: string = "요일";
+    selectedTime: string = "시간";
+    timeQuery: string = "";
+
+    makeTimeQuery(): string{
+        if((this.selectedDate === "요일") && (this.selectedTime === "시간"))
+            return "";
+        else if(this.selectedDate === "요일")
+            return this.selectedTime;
+        else if(this.selectedTime === "시간")
+            return this.selectedDate;
+        else
+            return this.selectedDate + this.selectedTime;
+    }
 
     getRandomColor() : string {
         var letters = '0123456789ABCDEF'.split('');

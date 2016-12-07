@@ -10,18 +10,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var cart_service_1 = require('./cart.service');
+var lecture_data_1 = require('./lecture-data');
+var _ = require("lodash");
 var AppComponent = (function () {
     function AppComponent(cartService) {
         this.cartService = cartService;
+        this.lectures = lecture_data_1.LECTURES;
         this.cart = [];
         this.day = { 월: 0, 화: 1, 수: 2, 목: 3, 금: 4 };
         this.table = new Array(36);
+        this.selectedDepart = "개설학과";
+        this.selectedMajor = "개설전공";
+        this.selectedCategory = "교과구분(과목분류)";
+        this.selectedDate = "요일";
+        this.selectedTime = "시간";
+        this.timeQuery = "";
     }
     AppComponent.prototype.ngOnInit = function () {
         this.getCart();
         for (var i = 0; i < 36; i++) {
             this.table[i] = new Array(6).fill("#FFFFFF");
         }
+        this.departList = _.uniqBy(this.lectures, 'department');
+        this.majorList = _.uniqBy(this.lectures, 'major');
     };
     AppComponent.prototype.getCart = function () {
         var _this = this;
@@ -78,6 +89,16 @@ var AppComponent = (function () {
             var index = this.cart.indexOf(lecture);
             this.cart.splice(index, 1);
         }
+    };
+    AppComponent.prototype.makeTimeQuery = function () {
+        if ((this.selectedDate === "요일") && (this.selectedTime === "시간"))
+            return "";
+        else if (this.selectedDate === "요일")
+            return this.selectedTime;
+        else if (this.selectedTime === "시간")
+            return this.selectedDate;
+        else
+            return this.selectedDate + this.selectedTime;
     };
     AppComponent.prototype.getRandomColor = function () {
         var letters = '0123456789ABCDEF'.split('');

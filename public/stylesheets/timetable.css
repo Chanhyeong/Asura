@@ -133,11 +133,27 @@ div.table-title {
 
 .search{
     text-align: center;
+    vertical-align: middle;
 }
 
-.search div{
+.search .select{
+    text-align: center;
+    width: 900px;
+}
+
+.search .select, .searchByTitle{
     display:inline-block;
     margin: 0 1px 0 0;
+}
+
+.search .select select{
+    display:inline-block;
+    margin: 0 1px 0 0;
+    max-width: 170px;
+}
+
+.search .searchByTitle{
+    max-width: 130px;
 }
 
 .table-fill {

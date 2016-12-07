@@ -6,7 +6,11 @@ import {DataTableModule} from "angular2-datatable";
 
 import { AppComponent } from "./app.component";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {DataFilterPipe} from "./data-filter.pipe"
+import {TitleFilterPipe} from "./title-filter.pipe"
+import {DepartFilterPipe} from "./depart-filter.pipe"
+import {MajorFilterPipe} from "./major-filter.pipe"
+import {CatetegoryFilterPipe} from "./category-filter.pipe"
+import {TimeFilterPipe} from "./time-filter.pipe"
 
 @NgModule({
     imports: [
@@ -15,11 +19,15 @@ import {DataFilterPipe} from "./data-filter.pipe"
         NgbModule.forRoot(),
         HttpModule,
         JsonpModule,
-        DataTableModule
+        DataTableModule,
     ],
     declarations: [
         AppComponent,
-        DataFilterPipe
+        TitleFilterPipe,
+        DepartFilterPipe,
+        MajorFilterPipe,
+        CatetegoryFilterPipe,
+        TimeFilterPipe
     ],
     bootstrap: [ AppComponent ]
 })
