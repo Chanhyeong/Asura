@@ -96,7 +96,7 @@ var AppComponent = (function () {
         for (var index = 0; index < info.length; index++) {
             var string = info[index];
             var x1, x2, y = string[0];
-            var reg = /\w/g;
+            var reg = /\w+/g;
             var result = string.match(reg);
             if (result.length == 1) {
                 if ('A'.charCodeAt((0)) <= result[0].charCodeAt(0)
@@ -114,11 +114,12 @@ var AppComponent = (function () {
                 stack.push({ x1: x1, x2: x1 + 1, y: y });
             }
             else {
+                console.log(result);
                 x1 = (parseInt(result[0]) - 8) * 2;
                 if (result[1][0] == '3')
                     x1++;
                 x2 = (parseInt(result[2]) - 8) * 2;
-                if (result[1][3] == '3')
+                if (result[3][0] == '3')
                     x2++;
                 stack.push({ x1: x1, x2: x1 + 1, y: y });
             }

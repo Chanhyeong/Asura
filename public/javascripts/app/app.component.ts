@@ -85,6 +85,16 @@ export class AppComponent implements OnInit {
         }
     }
 
+    // result(lecture){
+    //     return _.map(_.uniqBy(lecture, "major"))
+    // }
+
+    queryTitle: string;
+    byMajor: string;
+    startDate: string;
+    startTime: string;
+    endDate: string;
+    endTime: string;
 
     getRandomColor() : string {
         var letters = '0123456789ABCDEF'.split('');
@@ -100,7 +110,7 @@ export class AppComponent implements OnInit {
         for (var index = 0; index < info.length; index++) {
             var string = info[index];
             var x1,x2,y = string[0];
-            var reg = /\w/g;
+            var reg = /\w+/g;
             var result = string.match(reg);
 
             if(result.length == 1){ // 0~15 or A~J
@@ -119,10 +129,11 @@ export class AppComponent implements OnInit {
                 stack.push({x1 : x1, x2 : x1+1, y: y});
             }
             else{
+                console.log(result);
                 x1 = (parseInt(result[0])-8)*2;
                 if(result[1][0] == '3')x1++;
                 x2 = (parseInt(result[2])-8)*2;
-                if(result[1][3] == '3')x2++;
+                if(result[3][0] == '3')x2++;
                 stack.push({x1 : x1, x2 : x1+1, y: y});
             }
         }

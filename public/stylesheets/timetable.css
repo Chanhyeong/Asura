@@ -10,14 +10,13 @@ body {
     height: 65px;
 }
 
-.pagination{
-    margin-left: 10px;
-    margin-right: 10px;
+.plans .pagination{
+    margin-left: 15px;
+    margin-right: 15px;
 }
 
 #timetable_work_space{
-    text-align: left;
-    margin-left: 50px;
+    text-align: center;
     vertical-align: text-top;
 }
 
@@ -82,6 +81,11 @@ body {
     background:#4E5066;
 }
 
+#timetable_work_space .table-cart th{
+    font-size: 13px;
+    padding: 7px;
+}
+
 .time_table_time_alphabet{
     border-left: 1px solid #C1C3D1;
 }
@@ -95,7 +99,7 @@ body {
 .plan, .cart{
     display:inline-block;
     vertical-align: middle;
-    margin: 0 50px 0 0;
+    margin: 0 15px 0 15px;
 }
 
 .time_table_class th{
