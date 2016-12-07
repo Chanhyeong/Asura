@@ -73,7 +73,6 @@ var AppComponent = (function () {
                 var y = this.day[slice[i].y];
                 for (var x = slice[i].x1; x <= slice[i].x2; x++) {
                     this.table[x][y] = "#FFFFFF";
-                    this.check[x][y] = false;
                 }
             }
             var index = this.cart.indexOf(lecture);
