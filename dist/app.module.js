@@ -15,7 +15,11 @@ var http_1 = require('@angular/http');
 var angular2_datatable_1 = require("angular2-datatable");
 var app_component_1 = require("./app.component");
 var ng_bootstrap_1 = require('@ng-bootstrap/ng-bootstrap');
-var data_filter_pipe_1 = require("./data-filter.pipe");
+var title_filter_pipe_1 = require("./title-filter.pipe");
+var depart_filter_pipe_1 = require("./depart-filter.pipe");
+var major_filter_pipe_1 = require("./major-filter.pipe");
+var category_filter_pipe_1 = require("./category-filter.pipe");
+var time_filter_pipe_1 = require("./time-filter.pipe");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -27,11 +31,15 @@ var AppModule = (function () {
                 ng_bootstrap_1.NgbModule.forRoot(),
                 http_1.HttpModule,
                 http_1.JsonpModule,
-                angular2_datatable_1.DataTableModule
+                angular2_datatable_1.DataTableModule,
             ],
             declarations: [
                 app_component_1.AppComponent,
-                data_filter_pipe_1.DataFilterPipe
+                title_filter_pipe_1.TitleFilterPipe,
+                depart_filter_pipe_1.DepartFilterPipe,
+                major_filter_pipe_1.MajorFilterPipe,
+                category_filter_pipe_1.CatetegoryFilterPipe,
+                time_filter_pipe_1.TimeFilterPipe
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

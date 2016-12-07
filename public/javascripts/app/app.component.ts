@@ -3,6 +3,9 @@ import { CartService } from './cart.service';
 import { Lecture } from './lecture'
 import { Cart } from './cart'
 import {Observable} from 'rxjs/Rx';
+import { LECTURES } from './lecture-data'
+import * as _ from "lodash";
+
 
 @Component({
     selector: 'asura-app',
@@ -13,14 +16,18 @@ import {Observable} from 'rxjs/Rx';
 
 export class AppComponent implements OnInit {
     constructor (private cartService: CartService){}
-    lectures : Lecture[];
+    lectures = LECTURES;
     cart : Lecture[] = [];
     DBinfo : Cart;
     day = {월 : 0,화: 1,수:2, 목:3, 금:4};
     table = new Array(36);
+
+    departList : Lecture[];
+    majorList : Lecture[];
+
     ngOnInit(): void {
-            this.getLecture();
-            this.getCart();
+            this.getLecture(); // 모든 수강정보 가져옴
+            this.getCart(); // DB에 존재하는 ID 고유의 책가방 가져옴
         for(var i=0; i<36 ; i++){
             this.table[i] = new Array(6).fill("#FFFFFF");
         }
@@ -28,21 +35,29 @@ export class AppComponent implements OnInit {
     private getLecture(): void{
         this.cartService.getLectures()
             .then(lectures => this.lectures = lectures);
+        this.departList = _.uniqBy(this.lectures, 'department');
+        this.majorList = _.uniqBy(this.lectures, 'major');
     }
+
     private getCart() : void{
         this.cartService.getCart()
             .subscribe(
                 DBinfo => this.DBinfo = DBinfo,err=>console.log(err),
                 () => {
                     var _cart = Object.values(this.DBinfo);
-                    for(var i = 0 ; i<_cart[2].length ; i++)console.log(_cart[2][i]);
+                    for(var i = 0 ; i<_cart[2].length ; i++) {
+                       var _index = this.lectures.findIndex(x => x.code == _cart[2][i]);
+                        this.addToCart(this.lectures[_index],1);
+                    }
                 }
             )
 
     }
-    private addToCart(lecture : Lecture) : void {
-
-        if (confirm('책가방에 추가 하시겠습니까?')) {
+    private addToCart(lecture : Lecture,_c : number) : void {
+         var flag : boolean = false;
+        if(_c == 0)flag = confirm('책가방에 추가 하시겠습니까?');
+        else flag = true;
+        if (flag == true) {
             if (this.cart.indexOf(lecture) == -1) {
                 var string = lecture.timetable;
                 var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
@@ -79,6 +94,7 @@ export class AppComponent implements OnInit {
         }
     }
 
+
     private deleteCart(lecture : Lecture) : void{
         if (confirm('책가방에서 삭제 하시겠습니까?')) {
             var string = lecture.timetable;
@@ -102,11 +118,23 @@ export class AppComponent implements OnInit {
     // }
 
     queryTitle: string;
-    byMajor: string;
-    startDate: string;
-    startTime: string;
-    endDate: string;
-    endTime: string;
+    selectedDepart: string = "개설학과";
+    selectedMajor: string = "개설전공";
+    selectedCategory: string = "교과구분(과목분류)";
+    selectedDate: string = "요일";
+    selectedTime: string = "시간";
+    timeQuery: string = "";
+
+    makeTimeQuery(): string{
+        if((this.selectedDate === "요일") && (this.selectedTime === "시간"))
+            return "";
+        else if(this.selectedDate === "요일")
+            return this.selectedTime;
+        else if(this.selectedTime === "시간")
+            return this.selectedDate;
+        else
+            return this.selectedDate + this.selectedTime;
+    }
 
     private calculateTime(info) {
         var stack= new Array();

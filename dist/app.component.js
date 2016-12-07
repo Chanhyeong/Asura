@@ -10,16 +10,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var cart_service_1 = require('./cart.service');
+var lecture_data_1 = require('./lecture-data');
+var _ = require("lodash");
 var AppComponent = (function () {
     function AppComponent(cartService) {
         this.cartService = cartService;
+        this.lectures = lecture_data_1.LECTURES;
         this.cart = [];
         this.day = { 월: 0, 화: 1, 수: 2, 목: 3, 금: 4 };
         this.table = new Array(36);
+        this.selectedDepart = "개설학과";
+        this.selectedMajor = "개설전공";
+        this.selectedCategory = "교과구분(과목분류)";
+        this.selectedDate = "요일";
+        this.selectedTime = "시간";
+        this.timeQuery = "";
     }
     AppComponent.prototype.ngOnInit = function () {
-        this.getLecture();
-        this.getCart();
+        this.getLecture(); // 모든 수강정보 가져옴
+        this.getCart(); // DB에 존재하는 ID 고유의 책가방 가져옴
         for (var i = 0; i < 36; i++) {
             this.table[i] = new Array(6).fill("#FFFFFF");
         }
@@ -28,18 +37,27 @@ var AppComponent = (function () {
         var _this = this;
         this.cartService.getLectures()
             .then(function (lectures) { return _this.lectures = lectures; });
+        this.departList = _.uniqBy(this.lectures, 'department');
+        this.majorList = _.uniqBy(this.lectures, 'major');
     };
     AppComponent.prototype.getCart = function () {
         var _this = this;
         this.cartService.getCart()
             .subscribe(function (DBinfo) { return _this.DBinfo = DBinfo; }, function (err) { return console.log(err); }, function () {
             var _cart = Object.values(_this.DBinfo);
-            for (var i = 0; i < _cart[2].length; i++)
-                console.log(_cart[2][i]);
+            for (var i = 0; i < _cart[2].length; i++) {
+                var _index = _this.lectures.findIndex(function (x) { return x.code == _cart[2][i]; });
+                _this.addToCart(_this.lectures[_index], 1);
+            }
         });
     };
-    AppComponent.prototype.addToCart = function (lecture) {
-        if (confirm('책가방에 추가 하시겠습니까?')) {
+    AppComponent.prototype.addToCart = function (lecture, _c) {
+        var flag = false;
+        if (_c == 0)
+            flag = confirm('책가방에 추가 하시겠습니까?');
+        else
+            flag = true;
+        if (flag == true) {
             if (this.cart.indexOf(lecture) == -1) {
                 var string = lecture.timetable;
                 var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
@@ -88,6 +106,16 @@ var AppComponent = (function () {
             var index = this.cart.indexOf(lecture);
             this.cart.splice(index, 1);
         }
+    };
+    AppComponent.prototype.makeTimeQuery = function () {
+        if ((this.selectedDate === "요일") && (this.selectedTime === "시간"))
+            return "";
+        else if (this.selectedDate === "요일")
+            return this.selectedTime;
+        else if (this.selectedTime === "시간")
+            return this.selectedDate;
+        else
+            return this.selectedDate + this.selectedTime;
     };
     AppComponent.prototype.calculateTime = function (info) {
         var stack = new Array();

@@ -483,97 +483,45 @@
 
 <div id="lecture_list">
     <div class="search">
-        <div class="dropdown" id="findDepartment">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                개설학과
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="#">temp</a></li>
-                <li><a href="#">temp</a></li>
-                <li><a href="#">temp</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">temp</a></li>
-            </ul>
-        </div>
-        <div class="dropdown" id="findMajor">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                개설전공
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li *ngFor="let lecture of lectures"><a href="#">{{lecture.major}}</a></li>
-            </ul>
-        </div>
-        <div class="dropdown" id="findCategory">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                교과구분 (과목분류)
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu3">
-                <li><a href="#" ngValue="전공과목">전공과목</a></li>
-                <li><a href="#" ngValue="기초과목">기초과목</a></li>
-                <li><a href="#" ngValue="교양과목">교양과목</a></li>
-                <li><a href="#" ngValue="영역별교양">영역별교양</a></li>
-            </ul>
-        </div>
-        <div class="dropdown" id="findFirstDay">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                첫 수업 요일
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu4">
-                <li><a href="#">temp</a></li>
-                <li><a href="#">temp</a></li>
-                <li><a href="#">temp</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">temp</a></li>
-            </ul>
-        </div>
-        <div class="dropdown" id="findFirstTime">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                첫 수업 시간
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu5">
-                <li><a href="#">temp</a></li>
-                <li><a href="#">temp</a></li>
-                <li><a href="#">temp</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">temp</a></li>
-            </ul>
-        </div>
-        <div class="dropdown" id="findSecondDay">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                끝 수업 요일
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu6">
-                <li><a href="#">temp</a></li>
-                <li><a href="#">temp</a></li>
-                <li><a href="#">temp</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">temp</a></li>
-            </ul>
-        </div>
-        <div class="dropdown" id="findSecondTime">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                끝 수업 시간
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu7">
-                <li><a href="#">temp</a></li>
-                <li><a href="#">temp</a></li>
-                <li><a href="#">temp</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">temp</a></li>
-            </ul>
+        <div class="select">
+            <select [(ngModel)]="selectedDepart" class='form-control'>
+                <option ngValue="개설학과">개설학과</option>
+                <option [value]="list.department" *ngFor="let list of departList" >{{list.department}}</option>
+            </select>
+            <select [(ngModel)]="selectedMajor" class='form-control'>
+                <option ngValue="개설전공">개설전공</option>
+                <option [value]="list.major" *ngFor="let list of majorList" >{{list.major}}</option>
+            </select>
+            <select [(ngModel)]="selectedCategory" class='form-control'>
+                <option ngValue="교과구분(과목분류)">교과구분(과목분류)</option>
+                <option ngValue="전공과목">전공과목</option>
+                <option ngValue="기초과목">기초과목</option>
+                <option ngValue="교양과목">교양과목</option>
+                <option ngValue="영역별과목">영역별교양</option>
+            </select>
+            <select [(ngModel)]="selectedDate" class='form-control'>
+                <option ngValue="요일">요일</option>
+                <option ngValue="월">월</option>
+                <option ngValue="화">화</option>
+                <option ngValue="수">수</option>
+                <option ngValue="목">목</option>
+                <option ngValue="금">금</option>
+            </select>
+            <select [(ngModel)]="selectedTime" class='form-control'>
+                <option ngValue="시간">시간</option>
+                <option ngValue="A">A</option>
+                <option ngValue="B">B</option>
+                <option ngValue="C">C</option>
+                <option ngValue="D">D</option>
+                <option ngValue="E">E</option>
+                <option ngValue="F">F</option>
+            </select>
         </div>
         <div class="searchByTitle">
             <input class="form-control" [(ngModel)]="queryTitle"/>
         </div>
     </div>
-    <table class="table-fill" [mfData]="lectures | dataFilter : queryTitle" #mf="mfDataTable">
+    <table class="table-fill" [mfData]="lectures | titleFilter : queryTitle | departFilter : selectedDepart | majorFilter : selectedMajor | categoryFilter : selectedCategory | timeFilter : makeTimeQuery()" #mf="mfDataTable">
         <thead>
         <tr>
             <th class="code">수강번호</th>
@@ -593,7 +541,7 @@
         </tr>
         </thead>
         <tbody class="table-hover">
-        <tr *ngFor="let lecture of mf.data" (click)="addToCart(lecture)">
+        <tr *ngFor="let lecture of mf.data" (click)="addToCart(lecture,0)">
             <td class="code">{{lecture.code}}</td>
             <td class="department">{{lecture.department}}</td>
             <td class="major">{{lecture.major}}</td>
