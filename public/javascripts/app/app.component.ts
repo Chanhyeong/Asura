@@ -1,6 +1,8 @@
 import { Component,OnInit } from '@angular/core';
 import { CartService } from './cart.service';
 import { Lecture } from './lecture'
+import { Cart } from './cart'
+import {Observable} from 'rxjs/Rx';
 
 @Component({
     selector: 'asura-app',
@@ -13,20 +15,32 @@ export class AppComponent implements OnInit {
     constructor (private cartService: CartService){}
     lectures : Lecture[];
     cart : Lecture[] = [];
+    DBinfo : Cart;
     day = {월 : 0,화: 1,수:2, 목:3, 금:4};
     table = new Array(36);
     ngOnInit(): void {
-        this.getCart();
+            this.getLecture();
+            this.getCart();
         for(var i=0; i<36 ; i++){
             this.table[i] = new Array(6).fill("#FFFFFF");
         }
     }
-    getCart(): void{
+    private getLecture(): void{
         this.cartService.getLectures()
             .then(lectures => this.lectures = lectures);
     }
+    private getCart() : void{
+        this.cartService.getCart()
+            .subscribe(
+                DBinfo => this.DBinfo = DBinfo,err=>console.log(err),
+                () => {
+                    var _cart = Object.values(this.DBinfo);
+                    for(var i = 0 ; i<_cart[2].length ; i++)console.log(_cart[2][i]);
+                }
+            )
 
-    addToCart(lecture : Lecture) : void {
+    }
+    private addToCart(lecture : Lecture) : void {
 
         if (confirm('책가방에 추가 하시겠습니까?')) {
             if (this.cart.indexOf(lecture) == -1) {
@@ -54,16 +68,18 @@ export class AppComponent implements OnInit {
                         }
                     }
                 }
+
                 var index = this.cart.indexOf(lecture);
                 this.cart.push(lecture);
             }
             else{
+
                 alert("이미 책가방에 추가한 강의 입니다.");
             }
         }
     }
 
-    deleteCart(lecture : Lecture) : void{
+    private deleteCart(lecture : Lecture) : void{
         if (confirm('책가방에서 삭제 하시겠습니까?')) {
             var string = lecture.timetable;
             var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
@@ -92,16 +108,7 @@ export class AppComponent implements OnInit {
     endDate: string;
     endTime: string;
 
-    getRandomColor() : string {
-        var letters = '0123456789ABCDEF'.split('');
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    }
-
-    calculateTime(info) {
+    private calculateTime(info) {
         var stack= new Array();
         for (var index = 0; index < info.length; index++) {
             var string = info[index];
@@ -134,6 +141,14 @@ export class AppComponent implements OnInit {
             }
         }
         return stack;
+    }
+    private getRandomColor() : string {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
     }
 }
 

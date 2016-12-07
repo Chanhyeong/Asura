@@ -18,15 +18,25 @@ var AppComponent = (function () {
         this.table = new Array(36);
     }
     AppComponent.prototype.ngOnInit = function () {
+        this.getLecture();
         this.getCart();
         for (var i = 0; i < 36; i++) {
             this.table[i] = new Array(6).fill("#FFFFFF");
         }
     };
-    AppComponent.prototype.getCart = function () {
+    AppComponent.prototype.getLecture = function () {
         var _this = this;
         this.cartService.getLectures()
             .then(function (lectures) { return _this.lectures = lectures; });
+    };
+    AppComponent.prototype.getCart = function () {
+        var _this = this;
+        this.cartService.getCart()
+            .subscribe(function (DBinfo) { return _this.DBinfo = DBinfo; }, function (err) { return console.log(err); }, function () {
+            var _cart = Object.values(_this.DBinfo);
+            for (var i = 0; i < _cart[2].length; i++)
+                console.log(_cart[2][i]);
+        });
     };
     AppComponent.prototype.addToCart = function (lecture) {
         if (confirm('책가방에 추가 하시겠습니까?')) {
@@ -79,14 +89,6 @@ var AppComponent = (function () {
             this.cart.splice(index, 1);
         }
     };
-    AppComponent.prototype.getRandomColor = function () {
-        var letters = '0123456789ABCDEF'.split('');
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    };
     AppComponent.prototype.calculateTime = function (info) {
         var stack = new Array();
         for (var index = 0; index < info.length; index++) {
@@ -121,6 +123,14 @@ var AppComponent = (function () {
             }
         }
         return stack;
+    };
+    AppComponent.prototype.getRandomColor = function () {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
     };
     AppComponent = __decorate([
         core_1.Component({

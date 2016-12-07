@@ -36,11 +36,29 @@ router.get('/profile', function (req, res,next) {
         console.log("성공!");
         console.log(req.user);
         if (Array.isArray(req.user)) {
+            console.log("이것은.... " + req.user[0]._doc);
            // res.render('profile', {title: "로그인 성공!!!", user: req.user[0]._doc});
         } else {
-           //res.render('profile', {title: "로그인 성공!!", user: req.user});
+           console.log("저것은..... " +req.user.planA);
+            console.log("저것은..... " +req.user.name);
+           // res.render('profile', {title: "로그인 성공!!", user: req.user});
         }
     }
+});
+router.get('/cart', function (req, res,next) {
+    console.log("여기로 왔나요...?");
+    var cart = {
+        "email": "highalps@naver.com",
+        "name": "highalps",
+        "planA": ['E001','E003'],
+        "planB": [],
+        "planC": [],
+        "planD": [],
+        "planE": []
+    };
+    //cart = JSON.parse(cart);
+    //console.log(cart);
+    res.json(cart);
 });
 
 router.post('/login',
