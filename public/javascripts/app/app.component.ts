@@ -13,14 +13,12 @@ export class AppComponent implements OnInit {
     constructor (private cartService: CartService){}
     lectures : Lecture[];
     cart : Lecture[] = [];
-    day = {월 : 0,화: 1,수:2,목:3,금:4};
+    day = {월 : 0,화: 1,수:2, 목:3, 금:4};
     table = new Array(36);
-    check = new Array(36);
     ngOnInit(): void {
         this.getCart();
         for(var i=0; i<36 ; i++){
-            this.table[i] = new Array(6);
-            this.check[i] = new Array(6).fill(false);
+            this.table[i] = new Array(6).fill("#FFFFFF");
         }
     }
     getCart(): void{
@@ -45,14 +43,13 @@ export class AppComponent implements OnInit {
                     for (var i = 0; i < slice.length; i++) {
                         var y = this.day[slice[i].y];
                         for (var x = slice[i].x1; x <= slice[i].x2; x++) {
-                            if (this.check[x][y] == true) {
+                            if (this.table[x][y] != "#FFFFFF") {
                                 alert("시간이 중복되었습니다.");
                                 return;
                             }
                             if (w == 1) {
                                 this.table[x][y] = _color;
                                 console.log(x+','+y+','+this.table[x][y]);
-                                this.check[x][y] = true;
                             }
                         }
                     }

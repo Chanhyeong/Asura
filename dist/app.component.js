@@ -16,13 +16,11 @@ var AppComponent = (function () {
         this.cart = [];
         this.day = { 월: 0, 화: 1, 수: 2, 목: 3, 금: 4 };
         this.table = new Array(36);
-        this.check = new Array(36);
     }
     AppComponent.prototype.ngOnInit = function () {
         this.getCart();
         for (var i = 0; i < 36; i++) {
-            this.table[i] = new Array(6);
-            this.check[i] = new Array(6).fill(false);
+            this.table[i] = new Array(6).fill("#FFFFFF");
         }
     };
     AppComponent.prototype.getCart = function () {
@@ -46,14 +44,13 @@ var AppComponent = (function () {
                     for (var i = 0; i < slice.length; i++) {
                         var y = this.day[slice[i].y];
                         for (var x = slice[i].x1; x <= slice[i].x2; x++) {
-                            if (this.check[x][y] == true) {
+                            if (this.table[x][y] != "#FFFFFF") {
                                 alert("시간이 중복되었습니다.");
                                 return;
                             }
                             if (w == 1) {
                                 this.table[x][y] = _color;
                                 console.log(x + ',' + y + ',' + this.table[x][y]);
-                                this.check[x][y] = true;
                             }
                         }
                     }
