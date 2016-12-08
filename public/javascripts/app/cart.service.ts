@@ -25,19 +25,12 @@ export class CartService {
             .catch(this.handleError);
     }
 
-    public saveCart(cart : Cart) {
-        return this.http
-            .put(this.CartUrl, JSON.stringify(cart), {headers: this.headers})
-            .toPromise()
-            .then(() => cart)
+    public saveCart(cart : Cart) : Observable<Cart>{
+        return this.http.put(`${this.CartUrl}/${cart['email']}`,JSON.stringify(cart), {headers: this.headers})
+            .map((res:Response) => <Cart>res.json())
             .catch(this.handleError);
     }
-    /*
-    public handleError(error: any): Promise<any> {
-        console.error('An error occurred', error); // for demo purposes only
-        return Promise.reject(error.message || error);
-    }
-    */
+
     private handleError(error: Response){
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');

@@ -42,8 +42,10 @@ export class AppComponent implements OnInit {
     private getCart() : void{
         this.cartService.getCart()
             .subscribe(
-                DBinfo => this.DBinfo = DBinfo,err=>console.log(err),
+                DBinfo => this.DBinfo = DBinfo,
+                err=>console.log(err),
                 () => {
+                    console.log("load.....");
                     var _cart = Object.values(this.DBinfo);
                     for(var i = 0 ; i<_cart[2].length ; i++) {
                        var _index = this.lectures.findIndex(x => x.code == _cart[2][i]);
@@ -52,6 +54,12 @@ export class AppComponent implements OnInit {
                 }
             )
 
+    }
+    private saveCart() : void{
+        this.cartService.saveCart(this.DBinfo)
+            .subscribe(
+                ()=>console.log("수강정보 저장 완료")
+            );
     }
     private addToCart(lecture : Lecture,_c : number) : void {
          var flag : boolean = false;
@@ -88,7 +96,6 @@ export class AppComponent implements OnInit {
                 this.cart.push(lecture);
             }
             else{
-
                 alert("이미 책가방에 추가한 강의 입니다.");
             }
         }
@@ -113,9 +120,6 @@ export class AppComponent implements OnInit {
         }
     }
 
-    // result(lecture){
-    //     return _.map(_.uniqBy(lecture, "major"))
-    // }
 
     queryTitle: string;
     selectedDepart: string = "개설학과";

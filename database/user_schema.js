@@ -20,7 +20,7 @@ Schema.createSchema = function(mongoose) {
 	    , provider: {type: String, 'default':''}
 	    , authToken: {type: String, 'default':''}
 	    , facebook: {}
-		, planA : {type: Array,  'default':["E001","E003"]}
+		, planA : {type: Array,  'default':[]}
 		, planB : {type: Array,  'default':[]}
 		, planC : {type: Array,  'default':[]}
 		, planD : {type: Array,  'default':[]}

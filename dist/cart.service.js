@@ -29,18 +29,10 @@ var CartService = (function () {
             .catch(this.handleError);
     };
     CartService.prototype.saveCart = function (cart) {
-        return this.http
-            .put(this.CartUrl, JSON.stringify(cart), { headers: this.headers })
-            .toPromise()
-            .then(function () { return cart; })
+        return this.http.put(this.CartUrl + "/" + cart['email'], JSON.stringify(cart), { headers: this.headers })
+            .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
-    /*
-    public handleError(error: any): Promise<any> {
-        console.error('An error occurred', error); // for demo purposes only
-        return Promise.reject(error.message || error);
-    }
-    */
     CartService.prototype.handleError = function (error) {
         console.error(error);
         return Rx_1.Observable.throw(error.json().error || 'Server error');

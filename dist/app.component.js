@@ -44,12 +44,17 @@ var AppComponent = (function () {
         var _this = this;
         this.cartService.getCart()
             .subscribe(function (DBinfo) { return _this.DBinfo = DBinfo; }, function (err) { return console.log(err); }, function () {
+            console.log("load.....");
             var _cart = Object.values(_this.DBinfo);
             for (var i = 0; i < _cart[2].length; i++) {
                 var _index = _this.lectures.findIndex(function (x) { return x.code == _cart[2][i]; });
                 _this.addToCart(_this.lectures[_index], 1);
             }
         });
+    };
+    AppComponent.prototype.saveCart = function () {
+        this.cartService.saveCart(this.DBinfo)
+            .subscribe(function () { return console.log("수강정보 저장 완료"); });
     };
     AppComponent.prototype.addToCart = function (lecture, _c) {
         var flag = false;
