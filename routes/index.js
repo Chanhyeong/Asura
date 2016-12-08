@@ -46,6 +46,7 @@ router.get('/cart', function (req, res,next) {
 router.put('/cart/:email', function (req, res,next) {
 
     console.log(req.params.email);
+
     /*
   var database = app.get('database');
     database.UserModel.findOne({ 'email' : req.params.email}, function(err, user) {
@@ -57,7 +58,7 @@ router.put('/cart/:email', function (req, res,next) {
                    planD : req.body.planD,planE : req.body.planE }},function(err,result){
             });
         console.log("..... 수강정보 저장완료");
-        res.redirect('/timetable');
+     res.redirect('/timetable');
     });
     */
     // index.js에서 Database에 접근하는 방법을 알아내야함(저장버튼 기능)
