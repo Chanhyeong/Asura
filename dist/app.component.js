@@ -15,9 +15,9 @@ var _ = require("lodash");
 var AppComponent = (function () {
     function AppComponent(cartService) {
         this.cartService = cartService;
+        this.day = { 월: 0, 화: 1, 수: 2, 목: 3, 금: 4 };
         this.lectures = lecture_data_1.LECTURES;
         this.cart = [];
-        this.day = { 월: 0, 화: 1, 수: 2, 목: 3, 금: 4 };
         this.table = new Array(36);
         this.selectedDepart = "개설학과";
         this.selectedMajor = "개설전공";
@@ -53,8 +53,14 @@ var AppComponent = (function () {
         });
     };
     AppComponent.prototype.saveCart = function () {
+        var _plan = [];
+        for (var i = 0; i < this.cart.length; i++) {
+            _plan.push(this.cart[i].code);
+        }
+        console.log(_plan);
+        this.DBinfo.planA = _plan;
         this.cartService.saveCart(this.DBinfo)
-            .subscribe(function () { return console.log("수강정보 저장 완료"); });
+            .subscribe(function () { return alert("수강정보 저장 완료"); });
     };
     AppComponent.prototype.addToCart = function (lecture, _c) {
         var flag = false;

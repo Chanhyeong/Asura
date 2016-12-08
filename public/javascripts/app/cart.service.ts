@@ -18,7 +18,6 @@ export class CartService {
         return Promise.resolve(LECTURES);
     }
 
-
     public getCart() : Observable<Cart>{
         return this.http.get(this.CartUrl)
             .map((res: Response) => <Cart>res.json())

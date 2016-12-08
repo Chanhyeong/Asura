@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit} from '@angular/core';
 import { CartService } from './cart.service';
 import { Lecture } from './lecture'
 import { Cart } from './cart'
@@ -15,23 +15,26 @@ import * as _ from "lodash";
 })
 
 export class AppComponent implements OnInit {
+    day = {월 : 0,화: 1,수:2, 목:3, 금:4};
     constructor (private cartService: CartService){}
+
     lectures = LECTURES;
     cart : Lecture[] = [];
     DBinfo : Cart;
-    day = {월 : 0,화: 1,수:2, 목:3, 금:4};
     table = new Array(36);
 
     departList : Lecture[];
     majorList : Lecture[];
 
     ngOnInit(): void {
-            this.getLecture(); // 모든 수강정보 가져옴
-            this.getCart(); // DB에 존재하는 ID 고유의 책가방 가져옴
-        for(var i=0; i<36 ; i++){
+        this.getLecture(); // 모든 수강정보 가져옴
+        this.getCart(); // DB에 존재하는 ID 고유의 책가방 가져옴
+
+        for (var i = 0; i < 36; i++) {
             this.table[i] = new Array(6).fill("#FFFFFF");
         }
     }
+
     private getLecture(): void{
         this.cartService.getLectures()
             .then(lectures => this.lectures = lectures);
@@ -56,9 +59,15 @@ export class AppComponent implements OnInit {
 
     }
     private saveCart() : void{
+        var _plan = [];
+        for(var i=0 ; i<this.cart.length ; i++){
+            _plan.push(this.cart[i].code);
+        }
+        console.log(_plan);
+        this.DBinfo.planA = _plan;
         this.cartService.saveCart(this.DBinfo)
             .subscribe(
-                ()=>console.log("수강정보 저장 완료")
+                ()=>alert("수강정보 저장 완료")
             );
     }
     private addToCart(lecture : Lecture,_c : number) : void {

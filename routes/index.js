@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var passport = require('passport');
+var mongodb = require('mongodb');
+var mongoose = require('mongoose');
 
 /* GET home page. */
 
@@ -29,39 +31,40 @@ router.get('/signup', function (req,res, next) {
 });
 
 
-router.get('/cart', function (req, res,next) {
-    var cart = {
-        "email": req.user.email,
-        "name": req.user.name,
-        //"planA": req.user.planA,
-        "planA" : ['E001','E003'],
-        "planB": req.user.planB,
-        "planC": req.user.planC,
-        "planD": req.user.planD,
-        "planE": req.user.planE
-    };
-    console.log("DB에 저장된 수강정보 전송완료");
-    res.json(cart);
+router.get('/cart', function (req, res,next) { // get
+    var database = req.app.get('database');
+    database.UserModel.findOne({ 'email' : req.user.email}, function(err, user) {
+        console.log("get cart DBinfo... " + req.user.email);
+        if (err) {
+            console.log(err);
+            return done(err);
+        }
+        console.log("user info... is "+user);
+        var cart = {
+            "email": user.email,
+            "name": user.name,
+            "planA": user.planA,
+            "planB": user.planB,
+            "planC": user.planC,
+            "planD": user.planD,
+            "planE": user.planE
+        };
+        console.log("DB에 저장된 수강정보 전송완료");
+        res.json(cart);
+    });
+
 });
-router.put('/cart/:email', function (req, res,next) {
-
-    console.log(req.params.email);
-
-    /*
-  var database = app.get('database');
+router.put('/cart/:email', function (req, res,next) { // update
+    var database = req.app.get('database');
     database.UserModel.findOne({ 'email' : req.params.email}, function(err, user) {
-        console.log(req.params.email);
-        if (err) { return done(err); }
-        var collections = database.collection('users');
-        collections.update({email: req.body.email},
+        if (err) { console.log(err); return done(err); }
+        database.UserModel.update({email: req.body.email},
             {$set:{planA : req.body.planA,planB : req.body.planB,planC : req.body.planC,
                    planD : req.body.planD,planE : req.body.planE }},function(err,result){
             });
         console.log("..... 수강정보 저장완료");
-     res.redirect('/timetable');
+           //  res.redirect('/timetable');
     });
-    */
-    // index.js에서 Database에 접근하는 방법을 알아내야함(저장버튼 기능)
 });
 router.post('/login',
     passport.authenticate('local-login', {

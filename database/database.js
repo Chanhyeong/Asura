@@ -11,7 +11,6 @@ var database = {};
 
 database.init = function(app, config) {
 	console.log('init() 호출됨.');
-	
 	connect(app, config);
 };
 
@@ -23,7 +22,7 @@ function connect(app, config) {
 	mongoose.connect(config.db_url);
 	database.db = mongoose.connection;
 	
-	database.db.on('error', console.error.bind(console, 'mongoose connection error.'));	
+	database.db.on('error', console.error.bind(console, 'mongoose connection error.'));
 	database.db.on('open', function () {
 		console.log('데이터베이스에 연결되었습니다. : ' + config.db_url);
 		
