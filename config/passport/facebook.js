@@ -18,7 +18,7 @@ module.exports = function(app, passaort) {
 		
 		var options = {
 		    criteria: { 'facebook.id': profile.id }
-		}
+		};
 		
 		var database = app.get('database');
 	    database.UserModel.load(options, function (err, user) {

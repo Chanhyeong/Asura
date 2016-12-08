@@ -33,7 +33,8 @@ router.get('/cart', function (req, res,next) {
     var cart = {
         "email": req.user.email,
         "name": req.user.name,
-        "planA": req.user.planA,
+        //"planA": req.user.planA,
+        "planA" : ['E001','E003'],
         "planB": req.user.planB,
         "planC": req.user.planC,
         "planD": req.user.planD,
