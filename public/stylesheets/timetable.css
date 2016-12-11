@@ -6,13 +6,9 @@ body {
     text-rendering: optimizeLegibility;
 }
 
-.plans{
-    height: 65px;
-}
-
 .plans .pagination{
-    margin-left: 15px;
-    margin-right: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 #timetable_work_space{
@@ -41,9 +37,8 @@ body {
     border-top-right-radius:3px;
 }
 #timetable_work_space .noshow {
-    width: 0;
-    height: 15px;
-    padding: 0;
+    width: 0px;
+    padding: 1px;
     border-right: 0;
     border-bottom: 0;
 }
@@ -93,7 +88,7 @@ body {
 /* 두 개의 div가 한 열에 표시, div간 간격 제거*/
 .time_table_time, .time_table_class{
     display:inline-block;
-    margin: 0 -4px 0 0;
+    margin: 0 -6px 0 0;
 }
 
 .plan, .cart{
@@ -103,10 +98,10 @@ body {
 }
 
 .time_table_class th{
-    width: 100px;
+    width: 90px;
 }
 .time_table_cell{
-    width: 100px;
+    width: 90px;
 }
 div.table-title {
     display: block;
@@ -174,10 +169,12 @@ div.table-title {
 }
 
 .table-fill tbody{
+
     display: block;
     max-width: 1435px;
     height: 150px;
     overflow-y: scroll;
+    position: relative;
     width: 100%;
 }
 .table-fill th {
@@ -275,9 +272,9 @@ footer {
     text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
 }
 
-#timetable_work_space .ng-scope{
+#timetable_work_space .table-cell{
     font-size : 6px;
-    text-overflow: clip;
+    text-overflow: ellipsis;
     white-space: nowrap;
     text-align: center;
 
