@@ -60,7 +60,7 @@ var AppComponent = (function () {
         console.log(_plan);
         this.DBinfo.planA = _plan;
         this.cartService.saveCart(this.DBinfo)
-            .subscribe(function () { return alert("수강정보 저장 완료"); });
+            .subscribe();
     };
     AppComponent.prototype.addToCart = function (lecture, _c) {
         var flag = false;

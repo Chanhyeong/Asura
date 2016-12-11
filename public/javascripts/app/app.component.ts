@@ -66,9 +66,7 @@ export class AppComponent implements OnInit {
         console.log(_plan);
         this.DBinfo.planA = _plan;
         this.cartService.saveCart(this.DBinfo)
-            .subscribe(
-                ()=>alert("수강정보 저장 완료")
-            );
+            .subscribe();
     }
     private addToCart(lecture : Lecture,_c : number) : void {
          var flag : boolean = false;
