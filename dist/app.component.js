@@ -10,13 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var cart_service_1 = require('./cart.service');
-var lecture_data_1 = require('./lecture-data');
 var _ = require("lodash");
 var AppComponent = (function () {
     function AppComponent(cartService) {
         this.cartService = cartService;
         this.day = { 월: 0, 화: 1, 수: 2, 목: 3, 금: 4 };
-        this.lectures = lecture_data_1.LECTURES;
         this.cart = [];
         this.table = new Array(36);
         this.selectedDepart = "개설학과";
@@ -40,19 +38,22 @@ var AppComponent = (function () {
         this.departList = _.uniqBy(this.lectures, 'department');
         this.majorList = _.uniqBy(this.lectures, 'major');
     };
+    AppComponent.prototype.makeFromCart = function () {
+        console.log("load.....");
+        var _cart = Object.values(this.DBinfo);
+        for (var i = 0; i < _cart[2].length; i++) {
+            var _index = this.lectures.findIndex(function (x) { return x.code == _cart[2][i]; });
+            this.addToCart(this.lectures[_index], 1);
+        }
+    };
+    ;
     AppComponent.prototype.getCart = function () {
         var _this = this;
         this.cartService.getCart()
-            .subscribe(function (DBinfo) { return _this.DBinfo = DBinfo; }, function (err) { return console.log(err); }, function () {
-            console.log("load.....");
-            var _cart = Object.values(_this.DBinfo);
-            for (var i = 0; i < _cart[2].length; i++) {
-                var _index = _this.lectures.findIndex(function (x) { return x.code == _cart[2][i]; });
-                _this.addToCart(_this.lectures[_index], 1);
-            }
-        });
+            .subscribe(function (DBinfo) { return _this.DBinfo = DBinfo; }, function (err) { return console.log(err); }, function () { _this.makeFromCart(); });
     };
     AppComponent.prototype.saveCart = function () {
+        var _this = this;
         var _plan = [];
         for (var i = 0; i < this.cart.length; i++) {
             _plan.push(this.cart[i].code);
@@ -60,7 +61,7 @@ var AppComponent = (function () {
         console.log(_plan);
         this.DBinfo.planA = _plan;
         this.cartService.saveCart(this.DBinfo)
-            .subscribe();
+            .subscribe(function (DBinfo) { return _this.DBinfo = DBinfo; }, function (err) { return console.log(err); }, function () { _this.makeFromCart(); alert("저장이 완료 되었습니다!"); });
     };
     AppComponent.prototype.addToCart = function (lecture, _c) {
         var flag = false;
