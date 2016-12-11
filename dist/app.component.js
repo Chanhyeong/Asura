@@ -15,7 +15,8 @@ var AppComponent = (function () {
     function AppComponent(cartService) {
         this.cartService = cartService;
         this.day = { 월: 0, 화: 1, 수: 2, 목: 3, 금: 4 };
-        this.cart = [];
+        this.my_cart = [[], [], [], [], []];
+        this.view_cart = [];
         this.table = new Array(36);
         this.selectedDepart = "개설학과";
         this.selectedMajor = "개설전공";
@@ -40,26 +41,63 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.makeFromCart = function () {
         console.log("load.....");
-        var _cart = Object.values(this.DBinfo);
-        for (var i = 0; i < _cart[2].length; i++) {
-            var _index = this.lectures.findIndex(function (x) { return x.code == _cart[2][i]; });
-            this.addToCart(this.lectures[_index], 1);
+        var _cart = Object.values(this.DBinfo.plan);
+        var _color = this.getRandomColor();
+        for (var i = 0; i < _cart[0].length; i++) {
+            console.log("for문: " + _cart[0][i]);
+            var _index = this.lectures.findIndex(function (x) { return x.code == _cart[0][i]; });
+            var lecture = this.lectures[_index];
+            this.view_cart.push(this.lectures[_index]);
+            var string = lecture.timetable;
+            var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
+            var result = string.match(reg);
+            var slice = this.calculateTime(result);
+            for (var j = 0; j < slice.length; j++) {
+                var y = this.day[slice[j].y];
+                this.timeSpread(lecture);
+            }
         }
     };
     ;
+    AppComponent.prototype.otherPlan = function (c) {
+        for (var i = 0; i < 36; i++) {
+            this.table[i] = new Array(6).fill("#FFFFFF");
+        }
+        this.now_index = c;
+        var _cart = Object.values(this.DBinfo.plan);
+        this.view_cart = [];
+        for (var i = 0; i < _cart[c].length; i++) {
+            var _index = this.lectures.findIndex(function (x) { return x.code == _cart[c][i]; });
+            this.timeSpread(this.lectures[_index]);
+            this.view_cart.push(this.lectures[_index]);
+        }
+    };
     AppComponent.prototype.getCart = function () {
         var _this = this;
         this.cartService.getCart()
             .subscribe(function (DBinfo) { return _this.DBinfo = DBinfo; }, function (err) { return console.log(err); }, function () { _this.makeFromCart(); });
     };
+    AppComponent.prototype.timeSpread = function (lecture) {
+        var string = lecture.timetable;
+        var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
+        var result = string.match(reg);
+        var slice = this.calculateTime(result);
+        var _color = this.getRandomColor();
+        for (var i = 0; i < slice.length; i++) {
+            var y = this.day[slice[i].y];
+            for (var x = slice[i].x1; x <= slice[i].x2; x++) {
+                this.table[x][y] = _color;
+                console.log(x + ',' + y + ',' + this.table[x][y]);
+            }
+        }
+    };
     AppComponent.prototype.saveCart = function () {
         var _this = this;
-        var _plan = [];
-        for (var i = 0; i < this.cart.length; i++) {
-            _plan.push(this.cart[i].code);
+        for (var i = 0; i < this.my_cart.length; i++) {
+            for (var j = 0; j < this.my_cart[i].length; j++) {
+                this.DBinfo.plan[i].push(this.my_cart[i][j].code);
+            }
         }
-        console.log(_plan);
-        this.DBinfo.planA = _plan;
         this.cartService.saveCart(this.DBinfo)
             .subscribe(function (DBinfo) { return _this.DBinfo = DBinfo; }, function (err) { return console.log(err); }, function () { _this.makeFromCart(); alert("저장이 완료 되었습니다!"); });
     };
@@ -70,33 +108,29 @@ var AppComponent = (function () {
         else
             flag = true;
         if (flag == true) {
-            if (this.cart.indexOf(lecture) == -1) {
+            if (this.my_cart[this.now_index].indexOf(lecture) == -1) {
                 var string = lecture.timetable;
                 var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
                 var result = string.match(reg);
                 if (result.length == 0) {
-                    this.cart.push(lecture);
+                    this.my_cart[this.now_index].push(lecture);
                     return;
                 }
+                console.log('222222');
                 var _color = this.getRandomColor();
                 var slice = this.calculateTime(result);
-                for (var w = 0; w < 2; w++) {
-                    for (var i = 0; i < slice.length; i++) {
-                        var y = this.day[slice[i].y];
-                        for (var x = slice[i].x1; x <= slice[i].x2; x++) {
-                            if (this.table[x][y] != "#FFFFFF") {
-                                alert("시간이 중복되었습니다.");
-                                return;
-                            }
-                            if (w == 1) {
-                                this.table[x][y] = _color;
-                                console.log(x + ',' + y + ',' + this.table[x][y]);
-                            }
+                for (var i = 0; i < slice.length; i++) {
+                    var y = this.day[slice[i].y];
+                    for (var x = slice[i].x1; x <= slice[i].x2; x++) {
+                        if (this.table[x][y] != "#FFFFFF") {
+                            alert("시간이 중복되었습니다.");
+                            return;
                         }
                     }
                 }
-                var index = this.cart.indexOf(lecture);
-                this.cart.push(lecture);
+                this.my_cart[this.now_index].push(lecture);
+                this.view_cart.push(lecture);
+                this.timeSpread(lecture);
             }
             else {
                 alert("이미 책가방에 추가한 강의 입니다.");
@@ -115,8 +149,10 @@ var AppComponent = (function () {
                     this.table[x][y] = "#FFFFFF";
                 }
             }
-            var index = this.cart.indexOf(lecture);
-            this.cart.splice(index, 1);
+            var index = this.my_cart[this.now_index].indexOf(lecture);
+            this.my_cart[this.now_index].splice(index, 1);
+            index = this.view_cart.indexOf(lecture);
+            this.view_cart.splice(index, 1);
         }
     };
     AppComponent.prototype.makeTimeQuery = function () {
