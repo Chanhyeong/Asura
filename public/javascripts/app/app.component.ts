@@ -19,11 +19,11 @@ export class AppComponent implements OnInit {
     constructor (private cartService: CartService){}
 
     lectures : Lecture[];
-    my_cart : [Lecture[],Lecture[],Lecture[],Lecture[],Lecture[]] = [[],[],[],[],[]];
+    my_cart : [string[],string[],string[],string[],string[]] = [[],[],[],[],[]];
     view_cart : Lecture[] = [];
     DBinfo : Cart;
     table = new Array(36);
-    now_index : number;
+    now_index : number = 0;
     departList : Lecture[];
     majorList : Lecture[];
     queryTitle: string;
@@ -53,11 +53,12 @@ export class AppComponent implements OnInit {
 
     private makeFromCart() : void {
         console.log("load.....");
-        var _cart = Object.values(this.DBinfo.plan);
+        this.my_cart = Object.values(this.DBinfo.plan);
         var _color = this.getRandomColor();
-            for (var i = 0; i < _cart[0].length; i++) {
-                console.log("for문: "+_cart[0][i]);
-                var _index = this.lectures.findIndex(x => x.code == _cart[0][i]);
+            for (var i = 0; i < this.my_cart[0].length; i++) {
+                console.log("for문: "+this.my_cart[0][i]);
+                var _index = this.lectures.findIndex(x => x.code == this.my_cart[0][i]);
+                //var _index = this.lectures.findIndex(x => x.code == this.my_cart[0][i].code);
                 var lecture = this.lectures[_index];
                 this.view_cart.push(this.lectures[_index]);
                 var string = lecture.timetable;
@@ -76,10 +77,11 @@ export class AppComponent implements OnInit {
             this.table[i] = new Array(6).fill("#FFFFFF");
         }
         this.now_index = c;
-        var _cart = Object.values(this.DBinfo.plan);
+        var _cart = this.my_cart[c];
+        console.log("카트트트"+_cart);
         this.view_cart =  [];
-        for (var i = 0; i < _cart[c].length; i++) {
-            var _index = this.lectures.findIndex(x => x.code == _cart[c][i]);
+        for (var i = 0; i < _cart.length; i++) {
+            var _index = this.lectures.findIndex(x => x.code == _cart[i]);
             this.timeSpread(this.lectures[_index]);
             this.view_cart.push(this.lectures[_index]);
         }
@@ -106,8 +108,9 @@ export class AppComponent implements OnInit {
     }
     private saveCart() : void{
         for(var i=0 ; i<this.my_cart.length ; i++){
+            this.DBinfo.plan[i] = [];
             for(var j=0 ; j<this.my_cart[i].length ; j++) {
-                this.DBinfo.plan[i].push(this.my_cart[i][j].code);
+                this.DBinfo.plan[i].push(this.my_cart[i][j]);
             }
         }
 
@@ -121,12 +124,12 @@ export class AppComponent implements OnInit {
         else flag = true;
         if (flag == true) {
 
-            if (this.my_cart[this.now_index].indexOf(lecture) == -1) {
+            if (this.my_cart[this.now_index].indexOf(lecture.code) == -1) {
                 var string = lecture.timetable;
                 var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
                 var result = string.match(reg);
                 if(result.length == 0){
-                    this.my_cart[this.now_index].push(lecture); return ;
+                    this.my_cart[this.now_index].push(lecture.code); return ;
                 }
                 console.log('222222');
                 var _color = this.getRandomColor();
@@ -140,7 +143,7 @@ export class AppComponent implements OnInit {
                         }
                     }
                 }
-                this.my_cart[this.now_index].push(lecture);
+                this.my_cart[this.now_index].push(lecture.code);
                 this.view_cart.push(lecture);
                 this.timeSpread(lecture);
             }
@@ -164,7 +167,7 @@ export class AppComponent implements OnInit {
                     this.table[x][y] = "#FFFFFF";
                 }
             }
-            var index = this.my_cart[this.now_index].indexOf(lecture);
+            var index = this.my_cart[this.now_index].indexOf(lecture.code);
             this.my_cart[this.now_index].splice(index, 1);
             index = this.view_cart.indexOf(lecture);
             this.view_cart.splice(index, 1);
