@@ -18,12 +18,20 @@ export class AppComponent implements OnInit {
     constructor (private cartService: CartService){}
 
     lectures : Lecture[];
-    cart : Lecture[] = [];
+    my_cart : [Lecture[],Lecture[],Lecture[],Lecture[],Lecture[]] = [[],[],[],[],[]];
+    view_cart : Lecture[] = [];
     DBinfo : Cart;
     table = new Array(36);
-
+    now_index : number = 0;
     departList : Lecture[];
     majorList : Lecture[];
+    queryTitle: string;
+    selectedDepart: string = "개설학과";
+    selectedMajor: string = "개설전공";
+    selectedCategory: string = "교과구분(과목분류)";
+    selectedDate: string = "요일";
+    selectedTime: string = "시간";
+    timeQuery: string = "";
 
     listNum = 5;
 
@@ -55,62 +63,96 @@ export class AppComponent implements OnInit {
 
     private makeFromCart() : void {
         console.log("load.....");
-        var _cart = Object.values(this.DBinfo);
-        for (var i = 0; i < _cart[2].length; i++) {
-            var _index = this.lectures.findIndex(x => x.code == _cart[2][i]);
-            this.addToCart(this.lectures[_index], 1);
-        }
+        var _cart = Object.values(this.DBinfo.plan);
+        var _color = this.getRandomColor();
+            for (var i = 0; i < _cart[0].length; i++) {
+                console.log("for문: "+_cart[0][i]);
+                var _index = this.lectures.findIndex(x => x.code == _cart[0][i]);
+                var lecture = this.lectures[_index];
+                this.view_cart.push(this.lectures[_index]);
+                var string = lecture.timetable;
+                var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
+                var result = string.match(reg);
+                var slice = this.calculateTime(result);
+                for (var j = 0; j < slice.length; j++) {
+                    var y = this.day[slice[j].y];
+                    this.timeSpread(lecture);
+                }
+            }
     };
+
+    private otherPlan(c : number) : void{
+        for (var i = 0; i < 36; i++) {
+            this.table[i] = new Array(6).fill("#FFFFFF");
+        }
+        this.now_index = c;
+        var _cart = Object.values(this.DBinfo.plan[c]);
+        this.view_cart =  [];
+        for (var i = 0; i < _cart.length; i++) {
+            var _index = this.lectures.findIndex(x => x.code == _cart[i]);
+            this.timeSpread(this.lectures[_index]);
+            this.view_cart.push(this.lectures[_index]);
+        }
+    }
 
     private getCart() : void{
         this.cartService.getCart()
             .subscribe(DBinfo => this.DBinfo = DBinfo, err=>console.log(err), () => {this.makeFromCart();})
     }
-
-    private saveCart() : void{
-        var _plan = [];
-        for(var i=0 ; i<this.cart.length ; i++){
-            _plan.push(this.cart[i].code);
+    private timeSpread(lecture : Lecture) : void{
+        var string = lecture.timetable;
+        var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
+        var result = string.match(reg);
+        var slice = this.calculateTime(result);
+        var _color = this.getRandomColor();
+        for (var i = 0; i < slice.length; i++) {
+            var y = this.day[slice[i].y];
+            for(var x = slice[i].x1 ; x<=slice[i].x2 ; x++) {
+                this.table[x][y] = _color;
+                console.log(x+','+y+','+this.table[x][y]);
+            }
         }
-        console.log(_plan);
-        this.DBinfo.planA = _plan;
+
+    }
+    private saveCart() : void{
+        for(var i=0 ; i<this.my_cart.length ; i++){
+            for(var j=0 ; j<this.my_cart[i].length ; j++) {
+                this.DBinfo.plan[i].push(this.my_cart[i][j].code);
+            }
+        }
+
         this.cartService.saveCart(this.DBinfo)
             .subscribe(DBinfo => this.DBinfo = DBinfo,err=>console.log(err)
                 ,()=>{this.makeFromCart() ; alert("저장이 완료 되었습니다!")});
     }
-    private addToCart(lecture : Lecture,_c : number) : void {
+    private addToCart(lecture : Lecture, _c : number) : void {
          var flag : boolean = false;
         if(_c == 0)flag = confirm('책가방에 추가 하시겠습니까?');
         else flag = true;
         if (flag == true) {
-            if (this.cart.indexOf(lecture) == -1) {
+
+            if (this.my_cart[this.now_index].indexOf(lecture) == -1) {
                 var string = lecture.timetable;
                 var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
                 var result = string.match(reg);
                 if(result.length == 0){
-                    this.cart.push(lecture); return ;
+                    this.my_cart[this.now_index].push(lecture); return ;
                 }
+                console.log('222222');
                 var _color = this.getRandomColor();
                 var slice = this.calculateTime(result);
 
-                for (var w = 0; w < 2; w++) {
-                    for (var i = 0; i < slice.length; i++) {
-                        var y = this.day[slice[i].y];
-                        for (var x = slice[i].x1; x <= slice[i].x2; x++) {
-                            if (this.table[x][y] != "#FFFFFF") {
-                                alert("시간이 중복되었습니다.");
-                                return;
-                            }
-                            if (w == 1) {
-                                this.table[x][y] = _color;
-                                console.log(x+','+y+','+this.table[x][y]);
-                            }
+                for (var i = 0; i < slice.length; i++) {
+                     var y = this.day[slice[i].y];
+                    for (var x = slice[i].x1; x <= slice[i].x2; x++) {
+                        if (this.table[x][y] != "#FFFFFF") {
+                            alert("시간이 중복되었습니다.");return;
                         }
                     }
                 }
-
-                var index = this.cart.indexOf(lecture);
-                this.cart.push(lecture);
+                this.my_cart[this.now_index].push(lecture);
+                this.view_cart.push(lecture);
+                this.timeSpread(lecture);
             }
             else{
                 alert("이미 책가방에 추가한 강의 입니다.");
@@ -132,21 +174,14 @@ export class AppComponent implements OnInit {
                     this.table[x][y] = "#FFFFFF";
                 }
             }
-            var index = this.cart.indexOf(lecture);
-            this.cart.splice(index, 1);
+            var index = this.my_cart[this.now_index].indexOf(lecture);
+            this.my_cart[this.now_index].splice(index, 1);
+            index = this.view_cart.indexOf(lecture);
+            this.view_cart.splice(index, 1);
         }
     }
 
-
-    queryTitle: string;
-    selectedDepart: string = "개설학과";
-    selectedMajor: string = "개설전공";
-    selectedCategory: string = "교과구분(과목분류)";
-    selectedDate: string = "요일";
-    selectedTime: string = "시간";
-    timeQuery: string = "";
-
-    makeTimeQuery(): string{
+    private makeTimeQuery(): string{
         if((this.selectedDate === "요일") && (this.selectedTime === "시간"))
             return "";
         else if(this.selectedDate === "요일")

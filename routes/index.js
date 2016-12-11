@@ -43,12 +43,7 @@ router.get('/cart', function (req, res,next) { // get
         var cart = {
             "email": user.email,
             "name": user.name,
-            "planA": user.planA,
-            "planB": user.planB,
-            "planC": user.planC,
-            "planD": user.planD,
-            "planE": user.planE,
-            "plans" : [ [user.planA] ,[user.planB],[user.planB],[user.planB]]
+            "plan" : user.plan
         };
         console.log("DB에 저장된 수강정보 전송완료");
         res.json(cart);
@@ -60,9 +55,7 @@ router.put('/cart/:email', function (req, res,next) { // update
     database.UserModel.findOne({ 'email' : req.params.email}, function(err, user) {
         if (err) { console.log(err); return done(err); }
         database.UserModel.update({email: req.body.email},
-            {$set:{planA : req.body.planA,planB : req.body.planB,planC : req.body.planC,
-                   planD : req.body.planD,planE : req.body.planE }},function(err,result){
-            });
+            {$set:{plan  : req.body.plan  }},function(err,result){});
         console.log("..... 수강정보 저장완료");
         // res.redirect('/timetable');
     });
