@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var cart_service_1 = require('./cart.service');
+var lecture_data_1 = require('./lecture-data');
 var _ = require("lodash");
 var AppComponent = (function () {
     function AppComponent(cartService) {
@@ -25,7 +26,14 @@ var AppComponent = (function () {
         this.selectedDate = "요일";
         this.selectedTime = "시간";
         this.timeQuery = "";
+        this.listNum = 5;
     }
+    AppComponent.prototype.onScrollDown = function () {
+        this.listNum += 2;
+    };
+    AppComponent.prototype.setListNumInit = function () {
+        this.listNum = 5;
+    };
     AppComponent.prototype.ngOnInit = function () {
         this.getLecture(); // 모든 수강정보 가져옴
         this.getCart(); // DB에 존재하는 ID 고유의 책가방 가져옴
@@ -37,8 +45,8 @@ var AppComponent = (function () {
         var _this = this;
         this.cartService.getLectures()
             .then(function (lectures) { return _this.lectures = lectures; });
-        this.departList = _.uniqBy(this.lectures, 'department');
-        this.majorList = _.uniqBy(this.lectures, 'major');
+        this.departList = _.uniqBy(lecture_data_1.LECTURES, 'department');
+        this.majorList = _.uniqBy(lecture_data_1.LECTURES, 'major');
     };
     AppComponent.prototype.makeFromCart = function () {
         var _this = this;

@@ -6,6 +6,11 @@ body {
     text-rendering: optimizeLegibility;
 }
 
+.user_info {
+    max-width: 1750px;
+    text-align: right;
+}
+
 .plans .pagination{
     margin-left: 10px;
     margin-right: 10px;
@@ -169,7 +174,6 @@ div.table-title {
 }
 
 .table-fill tbody{
-
     display: block;
     max-width: 1435px;
     height: 150px;

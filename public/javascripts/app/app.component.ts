@@ -11,7 +11,6 @@ import * as _ from "lodash";
     selector: 'asura-app',
     templateUrl : 'public/javascripts/app/timetable.html',
     providers: [ CartService ]
-
 })
 
 export class AppComponent implements OnInit {
@@ -34,6 +33,16 @@ export class AppComponent implements OnInit {
     selectedTime: string = "시간";
     timeQuery: string = "";
 
+    listNum = 5;
+
+    onScrollDown(): void {
+        this.listNum += 2;
+    }
+
+    setListNumInit(): void{
+        this.listNum = 5;
+    }
+
     ngOnInit(): void {
         this.getLecture(); // 모든 수강정보 가져옴
         this.getCart(); // DB에 존재하는 ID 고유의 책가방 가져옴
@@ -46,8 +55,9 @@ export class AppComponent implements OnInit {
     private getLecture(): void{
         this.cartService.getLectures()
             .then(lectures => this.lectures = lectures);
-        this.departList = _.uniqBy(this.lectures, 'department');
-        this.majorList = _.uniqBy(this.lectures, 'major');
+
+        this.departList = _.uniqBy(LECTURES, 'department');
+        this.majorList = _.uniqBy(LECTURES, 'major');
     }
 
 
