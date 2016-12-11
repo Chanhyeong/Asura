@@ -1,5 +1,9 @@
 
 <!---------------------------------------------- Time table start ----------------------------------------->
+<div class="user_info" *ngIf="DBinfo">
+    안녕하세요! {{DBinfo.name}}님
+    <a href="/logout" class="btn btn-primary" role="button">로그아웃</a>
+</div>
 <div id="timetable_work_space">
     <div class="plan">
         <div class="time_table_time">
@@ -444,7 +448,7 @@
                 <li><a>Plan E</a></li>
             </ul>
             <ul class="pagination">
-                <li><a (onClick)="saveCart()">저장하기</a></li>
+                <li><a (click)="saveCart()">저장하기</a></li>
             </ul>
         </div>
         <table class="table-cart">
@@ -486,22 +490,22 @@
 <div id="lecture_list">
     <div class="search">
         <div class="select">
-            <select [(ngModel)]="selectedDepart" class='form-control'>
+            <select [(ngModel)]="selectedDepart" class='form-control' (change)="setListNumInit()">
                 <option ngValue="개설학과">개설학과</option>
-                <option [value]="list.department" *ngFor="let list of departList" >{{list.department}}</option>
+                <option *ngFor="let list of departList" [value]="list.department">{{list.department}}</option>
             </select>
-            <select [(ngModel)]="selectedMajor" class='form-control'>
+            <select [(ngModel)]="selectedMajor" class='form-control' (change)="setListNumInit()">
                 <option ngValue="개설전공">개설전공</option>
-                <option [value]="list.major" *ngFor="let list of majorList" >{{list.major}}</option>
+                <option *ngFor="let list of majorList" [value]="list.major">{{list.major}}</option>
             </select>
-            <select [(ngModel)]="selectedCategory" class='form-control'>
+            <select [(ngModel)]="selectedCategory" class='form-control' (change)="setListNumInit()">
                 <option ngValue="교과구분(과목분류)">교과구분(과목분류)</option>
                 <option ngValue="전공과목">전공과목</option>
                 <option ngValue="기초과목">기초과목</option>
                 <option ngValue="교양과목">교양과목</option>
                 <option ngValue="영역별과목">영역별교양</option>
             </select>
-            <select [(ngModel)]="selectedDate" class='form-control'>
+            <select [(ngModel)]="selectedDate" class='form-control' (change)="setListNumInit()">
                 <option ngValue="요일">요일</option>
                 <option ngValue="월">월</option>
                 <option ngValue="화">화</option>
@@ -509,7 +513,7 @@
                 <option ngValue="목">목</option>
                 <option ngValue="금">금</option>
             </select>
-            <select [(ngModel)]="selectedTime" class='form-control'>
+            <select [(ngModel)]="selectedTime" class='form-control' (change)="setListNumInit()">
                 <option ngValue="시간">시간</option>
                 <option ngValue="A">A</option>
                 <option ngValue="B">B</option>
@@ -520,10 +524,10 @@
             </select>
         </div>
         <div class="searchByTitle">
-            <input class="form-control" [(ngModel)]="queryTitle"/>
+            <input class="form-control" [(ngModel)]="queryTitle" (change)="setListNumInit()"/>
         </div>
     </div>
-    <table class="table-fill" [mfData]="lectures | titleFilter : queryTitle | departFilter : selectedDepart | majorFilter : selectedMajor | categoryFilter : selectedCategory | timeFilter : makeTimeQuery()" #mf="mfDataTable">
+    <table class="table-fill" [mfData]="lectures | titleFilter : queryTitle | departFilter : selectedDepart | majorFilter : selectedMajor | categoryFilter : selectedCategory | timeFilter : makeTimeQuery()" #mf="mfDataTable" >
         <thead>
         <tr>
             <th class="code">수강번호</th>
@@ -542,8 +546,8 @@
             <th class="leftSeat">여석</th>
         </tr>
         </thead>
-        <tbody class="table-hover">
-        <tr *ngFor="let lecture of mf.data" (click)="addToCart(lecture,0)">
+        <tbody class="table-hover" (scroll)="onScrollDown()">
+        <tr *ngFor="let lecture of mf.data| slice:0:listNum" (click)="addToCart(lecture,0)">
             <td class="code">{{lecture.code}}</td>
             <td class="department">{{lecture.department}}</td>
             <td class="major">{{lecture.major}}</td>

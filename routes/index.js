@@ -47,7 +47,8 @@ router.get('/cart', function (req, res,next) { // get
             "planB": user.planB,
             "planC": user.planC,
             "planD": user.planD,
-            "planE": user.planE
+            "planE": user.planE,
+            "plans" : [ [user.planA] ,[user.planB],[user.planB],[user.planB]]
         };
         console.log("DB에 저장된 수강정보 전송완료");
         res.json(cart);
@@ -63,7 +64,7 @@ router.put('/cart/:email', function (req, res,next) { // update
                    planD : req.body.planD,planE : req.body.planE }},function(err,result){
             });
         console.log("..... 수강정보 저장완료");
-           //  res.redirect('/timetable');
+        // res.redirect('/timetable');
     });
 });
 router.post('/login',

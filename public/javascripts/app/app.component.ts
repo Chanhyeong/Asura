@@ -11,20 +11,29 @@ import * as _ from "lodash";
     selector: 'asura-app',
     templateUrl : 'public/javascripts/app/timetable.html',
     providers: [ CartService ]
-
 })
 
 export class AppComponent implements OnInit {
     day = {월 : 0,화: 1,수:2, 목:3, 금:4};
     constructor (private cartService: CartService){}
 
-    lectures = LECTURES;
+    lectures : Lecture[];
     cart : Lecture[] = [];
     DBinfo : Cart;
     table = new Array(36);
 
     departList : Lecture[];
     majorList : Lecture[];
+
+    listNum = 5;
+
+    onScrollDown(): void {
+        this.listNum += 2;
+    }
+
+    setListNumInit(): void{
+        this.listNum = 5;
+    }
 
     ngOnInit(): void {
         this.getLecture(); // 모든 수강정보 가져옴
@@ -38,26 +47,26 @@ export class AppComponent implements OnInit {
     private getLecture(): void{
         this.cartService.getLectures()
             .then(lectures => this.lectures = lectures);
-        this.departList = _.uniqBy(this.lectures, 'department');
-        this.majorList = _.uniqBy(this.lectures, 'major');
+
+        this.departList = _.uniqBy(LECTURES, 'department');
+        this.majorList = _.uniqBy(LECTURES, 'major');
     }
+
+
+    private makeFromCart() : void {
+        console.log("load.....");
+        var _cart = Object.values(this.DBinfo);
+        for (var i = 0; i < _cart[2].length; i++) {
+            var _index = this.lectures.findIndex(x => x.code == _cart[2][i]);
+            this.addToCart(this.lectures[_index], 1);
+        }
+    };
 
     private getCart() : void{
         this.cartService.getCart()
-            .subscribe(
-                DBinfo => this.DBinfo = DBinfo,
-                err=>console.log(err),
-                () => {
-                    console.log("load.....");
-                    var _cart = Object.values(this.DBinfo);
-                    for(var i = 0 ; i<_cart[2].length ; i++) {
-                       var _index = this.lectures.findIndex(x => x.code == _cart[2][i]);
-                        this.addToCart(this.lectures[_index],1);
-                    }
-                }
-            )
-
+            .subscribe(DBinfo => this.DBinfo = DBinfo, err=>console.log(err), () => {this.makeFromCart();})
     }
+
     private saveCart() : void{
         var _plan = [];
         for(var i=0 ; i<this.cart.length ; i++){
@@ -66,9 +75,8 @@ export class AppComponent implements OnInit {
         console.log(_plan);
         this.DBinfo.planA = _plan;
         this.cartService.saveCart(this.DBinfo)
-            .subscribe(
-                ()=>alert("수강정보 저장 완료")
-            );
+            .subscribe(DBinfo => this.DBinfo = DBinfo,err=>console.log(err)
+                ,()=>{this.makeFromCart() ; alert("저장이 완료 되었습니다!")});
     }
     private addToCart(lecture : Lecture,_c : number) : void {
          var flag : boolean = false;
