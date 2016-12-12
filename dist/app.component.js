@@ -119,6 +119,12 @@ var AppComponent = (function () {
             flag = true;
         if (flag == true) {
             if (this.my_cart[this.now_index].indexOf(lecture.code) == -1) {
+                for (var w = 0; w < this.view_cart.length; w++) {
+                    if (this.view_cart[w].enTitle == lecture.enTitle) {
+                        alert("동일 과목 수강이 불가능 합니다.");
+                        return;
+                    }
+                }
                 var string = lecture.timetable;
                 var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
                 var result = string.match(reg);

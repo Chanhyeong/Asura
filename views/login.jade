@@ -9,28 +9,27 @@ html
         link(rel='stylesheet', href="public/stylesheets/main.css")
     body
         .container
-            if login_success == false
-                .col-sm-6.col-sm-offet-3
-                     h1
-                       span(class="fa fa-sign-in")  로그인
-                     if message.length > 0
-                        .alert.alert-danger #{message}
-                     form(action="/login" method="post")
-                        .form-group
-                          label Email
-                          input(type="text" class="form-control" name="email")
-                        .form-group
-                          label Password
-                          input(type="password" class="form-control" name="password")
-                        button(type="submit" class="btn btn-primary btn-md")  Login
-                     br
-                     p 계정이 없으세요?
-                        a(href="/signup") 회원 가입 하러하기
-            else
-                .jumbotron.text-center
-                  h1 아수라
-                  p 이미 로그인이 되어 있습니다.
-                  a(href="./logout" class="btn btn-default")
-                     span(class="fa fa-user")  Logout
-                  a(href="./timetable" class="btn btn-warning")
-                    span(class="fa fa-space-shuttle")  수강신청 페이지 가기
+                if login_success == false
+                    .col-sm-6.col-sm-offet-3
+                         h1
+                           span(class="fa fa-sign-in")  로그인
+                         if message.length > 0
+                            .alert.alert-danger #{message}
+                         form(action="/login" method="post")
+                            .form-group
+                              label Email
+                              input(type="text" class="form-control" name="email")
+                            .form-group
+                              label Password
+                              input(type="password" class="form-control" name="password")
+                            button(type="submit" class="btn btn-primary btn-md")  Login
+                         br
+                         p 계정이 없으세요?
+                            a(href="/signup") 회원 가입 하러하기
+                else
+                      h1 아수라
+                      p 이미 로그인이 되어 있습니다.
+                      a(href="./logout" class="btn btn-default")
+                         span(class="fa fa-user")  Logout
+                      a(href="./timetable" class="btn btn-warning")
+                        span(class="fa fa-space-shuttle")  수강신청 페이지 가기
