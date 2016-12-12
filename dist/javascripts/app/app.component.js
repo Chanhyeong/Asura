@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var cart_service_1 = require('./cart.service');
-var _ = require("lodash");
 var AppComponent = (function () {
     function AppComponent(cartService) {
         this.cartService = cartService;
@@ -42,11 +41,9 @@ var AppComponent = (function () {
     AppComponent.prototype.getLecture = function () {
         var _this = this;
         this.cartService.getLectures()
-            .subscribe(function (lectures) { return _this.lectures = lectures; }, function (err) { return console.log(err); }, function () {
-            _this.departList = _.uniqBy(_this.lectures, 'department');
-            _this.majorList = _.uniqBy(_this.lectures, 'major');
-            _this.getCart();
-        });
+            .subscribe(function (lectures) { return _this.lectures = lectures; }, function (err) { return console.log(err); }, function () { console.log("앙김옥지"); _this.getCart(); });
+        // this.departList = _.uniqBy(LECTURES, 'department');
+        //   this.majorList = _.uniqBy(LECTURES, 'major');
     };
     AppComponent.prototype.otherPlan = function (c) {
         for (var i = 0; i < 36; i++) {
@@ -64,7 +61,7 @@ var AppComponent = (function () {
     AppComponent.prototype.getCart = function () {
         var _this = this;
         this.cartService.getCart()
-            .subscribe(function (DBinfo) { return _this.DBinfo = DBinfo; }, function (err) { return console.log(err); }, function () { _this.makeFromCart(); });
+            .subscribe(function (DBinfo) { return _this.DBinfo = DBinfo; }, function (err) { return console.log(err); }, function () { console.log("앙김옥지222"); _this.makeFromCart(); });
     };
     AppComponent.prototype.makeFromCart = function () {
         var _this = this;
@@ -72,6 +69,8 @@ var AppComponent = (function () {
         this.my_cart = Object.values(this.DBinfo.plan);
         var _color = this.getRandomColor();
         for (var i = 0; i < this.my_cart[0].length; i++) {
+            console.log("for문: " + this.my_cart[0][i]);
+            console.log("this" + this.lectures);
             var _index = this.lectures.findIndex(function (x) { return x.code == _this.my_cart[0][i]; });
             var lecture = this.lectures[_index];
             this.view_cart.push(this.lectures[_index]);
@@ -79,6 +78,7 @@ var AppComponent = (function () {
             var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
             var result = string.match(reg);
             var slice = this.calculateTime(result);
+            console.log("111111111");
             for (var j = 0; j < slice.length; j++) {
                 var y = this.day[slice[j].y];
                 this.timeSpread(lecture);

@@ -19,9 +19,16 @@ var CartService = (function () {
         this.CartUrl = '../cart'; // URL to Web API
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
+    /*
+    public getLectures(): Promise<Lecture[]> {
+        return Promise.resolve(LECTURES);
+    }
+
+    */
     CartService.prototype.getLectures = function () {
-        return this.http.get('../public/lecture-data.json')
-            .cache().map(function (res) { return res.json(); });
+        return this.http.get('../public/javascripts/app/lecture-data.ts')
+            .map(function (res) { return res; })
+            .catch(this.handleError);
     };
     CartService.prototype.getCart = function () {
         return this.http.get(this.CartUrl)

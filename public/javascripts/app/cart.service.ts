@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Lecture } from './lecture'
-import { LECTURES } from './lecture-data'
 import { Cart } from './cart'
 import { Headers, Http,Response } from '@angular/http';
 import {Observable} from 'rxjs/Rx';
@@ -14,9 +13,11 @@ export class CartService {
     private headers: Headers = new Headers({'Content-Type': 'application/json'});
     constructor(private http: Http) {}
 
-    public getLectures(): Promise<Lecture[]> {
-        return Promise.resolve(LECTURES);
-    }
+
+     public getLectures(): Observable<Lecture[]> {
+     return this.http.get('../public/lecture-data.json')
+         .cache().map((res:Response) =><Lecture[]>res.json())
+     }
 
     public getCart() : Observable<Cart>{
         return this.http.get(this.CartUrl)

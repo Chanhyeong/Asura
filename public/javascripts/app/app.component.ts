@@ -2,8 +2,6 @@ import { Component,OnInit} from '@angular/core';
 import { CartService } from './cart.service';
 import { Lecture } from './lecture'
 import { Cart } from './cart'
-import {Observable} from 'rxjs/Rx';
-import { LECTURES } from './lecture-data'
 import * as _ from "lodash";
 
 
@@ -45,8 +43,6 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         this.getLecture(); // 모든 수강정보 가져옴
-        this.getCart(); // DB에 존재하는 ID 고유의 책가방 가져옴
-
         for (var i = 0; i < 36; i++) {
             this.table[i] = new Array(6).fill("#FFFFFF");
         }
@@ -54,33 +50,12 @@ export class AppComponent implements OnInit {
 
     private getLecture(): void{
         this.cartService.getLectures()
-            .then(lectures => this.lectures = lectures);
+            .subscribe(lectures => this.lectures = lectures,
+                err=>console.log(err),
+                ()=>{this.departList = _.uniqBy(this.lectures, 'department');
+                    this.majorList = _.uniqBy(this.lectures, 'major'); this.getCart()});
 
-        this.departList = _.uniqBy(LECTURES, 'department');
-        this.majorList = _.uniqBy(LECTURES, 'major');
     }
-
-
-    private makeFromCart() : void {
-        console.log("load.....");
-        this.my_cart = Object.values(this.DBinfo.plan);
-        var _color = this.getRandomColor();
-            for (var i = 0; i < this.my_cart[0].length; i++) {
-                console.log("for문: "+this.my_cart[0][i]);
-                var _index = this.lectures.findIndex(x => x.code == this.my_cart[0][i]);
-                //var _index = this.lectures.findIndex(x => x.code == this.my_cart[0][i].code);
-                var lecture = this.lectures[_index];
-                this.view_cart.push(this.lectures[_index]);
-                var string = lecture.timetable;
-                var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
-                var result = string.match(reg);
-                var slice = this.calculateTime(result);
-                for (var j = 0; j < slice.length; j++) {
-                    var y = this.day[slice[j].y];
-                    this.timeSpread(lecture);
-                }
-            }
-    };
 
     private otherPlan(c : number) : void{
         for (var i = 0; i < 36; i++) {
@@ -88,7 +63,6 @@ export class AppComponent implements OnInit {
         }
         this.now_index = c;
         var _cart = this.my_cart[c];
-        console.log("카트트트"+_cart);
         this.view_cart =  [];
         for (var i = 0; i < _cart.length; i++) {
             var _index = this.lectures.findIndex(x => x.code == _cart[i]);
@@ -99,8 +73,30 @@ export class AppComponent implements OnInit {
 
     private getCart() : void{
         this.cartService.getCart()
-            .subscribe(DBinfo => this.DBinfo = DBinfo, err=>console.log(err), () => {this.makeFromCart();})
+            .subscribe(DBinfo => this.DBinfo = DBinfo,
+                err=>console.log(err),
+                () => {this.makeFromCart();})
     }
+
+    private makeFromCart() : void {
+        console.log("load.....");
+        this.my_cart = Object.values(this.DBinfo.plan);
+        var _color = this.getRandomColor();
+        for (var i = 0; i < this.my_cart[0].length; i++) {
+            var _index = this.lectures.findIndex(x => x.code == this.my_cart[0][i]);
+            var lecture = this.lectures[_index];
+            this.view_cart.push(this.lectures[_index]);
+            var string = lecture.timetable;
+            var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
+            var result = string.match(reg);
+            var slice = this.calculateTime(result);
+            for (var j = 0; j < slice.length; j++) {
+                var y = this.day[slice[j].y];
+                this.timeSpread(lecture);
+            }
+        }
+    };
+
     private timeSpread(lecture : Lecture) : void{
         var string = lecture.timetable;
         var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
@@ -129,7 +125,7 @@ export class AppComponent implements OnInit {
                 ,()=>{this.makeFromCart() ; alert("저장이 완료 되었습니다!")});
     }
     private addToCart(lecture : Lecture, _c : number) : void {
-         var flag : boolean = false;
+        var flag : boolean = false;
         if(_c == 0)flag = confirm('책가방에 추가 하시겠습니까?');
         else flag = true;
         if (flag == true) {
@@ -141,12 +137,11 @@ export class AppComponent implements OnInit {
                 if(result.length == 0){
                     this.my_cart[this.now_index].push(lecture.code); return ;
                 }
-                console.log('222222');
                 var _color = this.getRandomColor();
                 var slice = this.calculateTime(result);
 
                 for (var i = 0; i < slice.length; i++) {
-                     var y = this.day[slice[i].y];
+                    var y = this.day[slice[i].y];
                     for (var x = slice[i].x1; x <= slice[i].x2; x++) {
                         if (this.table[x][y] != "#FFFFFF") {
                             alert("시간이 중복되었습니다.");return;
@@ -203,7 +198,7 @@ export class AppComponent implements OnInit {
             var reg = /\w+/g;
             var result = string.match(reg);
 
-            if(result.length == 1){ // 0~15 or A~J
+            if(result.length == 1){ // 0~15 oor A~J
                 if ('A'.charCodeAt((0)) <= result[0].charCodeAt(0)
                     && result[0].charCodeAt((0)) <= 'Z'.charCodeAt((0))) {
                     x1 = 3*(result[0].charCodeAt(0)-'A'.charCodeAt(0))+2;
