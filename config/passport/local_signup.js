@@ -21,6 +21,20 @@ module.exports = new LocalStrategy({
 				return done(err);
 			}
 
+			var reg = /[\w]+@[\w]+/g;
+			var result = email.match(reg);
+			// 이메일이 아닌 string인 경우
+			if(!result){
+				console.log('올바른 계정 형식이 아닙니다!');
+				return done(null, false, req.flash('signupMessage', '올바른 계정을 입력해주세요.'));
+			}
+			result = result[0].split('@');
+			console.log(result);
+			if(result[1] != "ajou" || result[1] != 'naver' || result[1] != 'google' || result[1] != 'hanmail'){
+				console.log('올바른 계정 형식이 아닙니다!');
+				return done(null, false, req.flash('signupMessage', '허용된 메일 계정이 아닙니다.'));
+			}
+
 			// 기존에 이메일이 있는 경우
 			if (user) {
 				console.log('계정이 중복되었습니다!');
