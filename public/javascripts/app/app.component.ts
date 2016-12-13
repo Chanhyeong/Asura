@@ -53,7 +53,7 @@ export class AppComponent implements OnInit {
             .subscribe(lectures => this.lectures = lectures,
                 err=>console.log(err),
                 ()=>{this.departList = _.uniqBy(this.lectures, 'department');
-                    this.majorList = _.uniqBy(this.lectures, 'major'); this.getCart()});
+                    this.majorList = _.uniqBy(this.lectures, 'major'); this.getCart();});
 
     }
 
@@ -75,7 +75,7 @@ export class AppComponent implements OnInit {
         this.cartService.getCart()
             .subscribe(DBinfo => this.DBinfo = DBinfo,
                 err=>console.log(err),
-                () => {this.makeFromCart();})
+                () => {this.makeFromCart();});
     }
 
     private makeFromCart() : void {

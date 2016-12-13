@@ -15,9 +15,9 @@ export class CartService {
 
 
      public getLectures(): Observable<Lecture[]> {
-     return this.http.get('../public/lecture-data.json')
-         .cache().map((res:Response) =><Lecture[]>res.json())
-     }
+        return this.http.get('../public/lecture-data.json')
+            .cache().map((res:Response) =><Lecture[]>res.json())
+    }
 
     public getCart() : Observable<Cart>{
         return this.http.get(this.CartUrl)
