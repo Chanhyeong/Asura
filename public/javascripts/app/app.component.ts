@@ -75,7 +75,8 @@ export class AppComponent implements OnInit {
     }
     private makeFromCart() : void {
         console.log("load.....");
-        this.my_cart = this.DBinfo.plan;
+       this.my_cart = < [string[],string[],string[],string[],string[] ]>Object.values(this.DBinfo.plan);
+
         var _color = this.getRandomColor();
         for (var i = 0; i < this.my_cart[0].length; i++) {
             var _index = this.lectures.findIndex(x => x.code == this.my_cart[0][i]);
@@ -110,18 +111,17 @@ export class AppComponent implements OnInit {
 
         if(confirm('저장 하시겠습니까?')) {
             for (var i = 0; i < this.my_cart.length; i++) {
+                console.log('my cart....' + this.my_cart[i]);
                 this.DBinfo.plan[i] = [];
                 for (var j = 0; j < this.my_cart[i].length; j++) {
+                    console.log(this.my_cart[i][j]);
                     this.DBinfo.plan[i].push(this.my_cart[i][j]);
                 }
             }
 
             this.cartService.saveCart(this.DBinfo)
                 .subscribe(DBinfo => this.DBinfo = DBinfo, err=>console.log(err)
-                    , ()=> {
-                        alert("저장이 완료 되었습니다!");
-                        this.makeFromCart();
-                    });
+                    , ()=> {this.makeFromCart();});
         }
     }
     private addToCart(lecture : Lecture, _c : number) : void {

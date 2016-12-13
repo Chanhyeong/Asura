@@ -53,13 +53,17 @@ router.get('/cart', function (req, res,next) { // get
 
 router.put('/cart/:email', function (req, res,next) { // update
     var database = req.app.get('database');
-    database.UserModel.findOne({ 'email' : req.params.email}, function(err, user) {
-        if (err) { console.log(err); return done(err); }
-        database.UserModel.update({email: req.body.email},
-            {$set:{plan  : req.body.plan  }},function(err,result){});
-        console.log("..... 수강정보 저장완료");
-        // res.redirect('/timetable');
-    });
+
+    database.UserModel.update({email: req.body.email},
+        {$set:{plan  : req.body.plan  }},function(err,result){
+            if (err) {
+                console.log(err);
+                return done(err);
+            }
+            console.log("..... 수강정보 저장완료");
+        });
+
+
 });
 router.post('/login',
     passport.authenticate('local-login', {
