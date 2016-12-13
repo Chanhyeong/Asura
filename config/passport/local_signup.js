@@ -29,8 +29,10 @@ module.exports = new LocalStrategy({
 				return done(null, false, req.flash('signupMessage', '올바른 계정을 입력해주세요.'));
 			}
 			result = result[0].split('@');
-			console.log(result);
-			if(result[1] != "ajou" || result[1] != 'naver' || result[1] != 'google' || result[1] != 'hanmail'){
+			if(result[1] == "ajou" || result[1] || "naver" || result[1] == "google" || result[1]== "hanmail"){
+				console.log('올바른 계정');
+			}
+			else{
 				console.log('올바른 계정 형식이 아닙니다!');
 				return done(null, false, req.flash('signupMessage', '허용된 메일 계정이 아닙니다.'));
 			}
