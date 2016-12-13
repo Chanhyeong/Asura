@@ -15,6 +15,8 @@ var AppComponent = (function () {
     function AppComponent(cartService) {
         this.cartService = cartService;
         this.day = { 월: 0, 화: 1, 수: 2, 목: 3, 금: 4 };
+        this.total_point = 0;
+        this.total_time = 0;
         this.my_cart = [[], [], [], [], []];
         this.view_cart = [];
         this.table = new Array(36);
@@ -50,6 +52,8 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.otherPlan = function (c) {
         for (var i = 0; i < 36; i++) {
+            this.total_point = 0;
+            this.total_time = 0;
             this.table[i] = new Array(6).fill("#FFFFFF");
         }
         this.now_index = c;
@@ -57,8 +61,11 @@ var AppComponent = (function () {
         this.view_cart = [];
         for (var i = 0; i < _cart.length; i++) {
             var _index = this.lectures.findIndex(function (x) { return x.code == _cart[i]; });
-            this.timeSpread(this.lectures[_index]);
-            this.view_cart.push(this.lectures[_index]);
+            var lecture = this.lectures[_index];
+            this.total_point += lecture.point;
+            this.total_time += lecture.time;
+            this.timeSpread(lecture);
+            this.view_cart.push(lecture);
         }
     };
     AppComponent.prototype.getCart = function () {
@@ -76,6 +83,8 @@ var AppComponent = (function () {
             var lecture = this.lectures[_index];
             this.view_cart.push(this.lectures[_index]);
             var string = lecture.timetable;
+            this.total_point += lecture.point;
+            this.total_time += lecture.time;
             var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
             var result = string.match(reg);
             var slice = this.calculateTime(result);
@@ -130,6 +139,12 @@ var AppComponent = (function () {
                     }
                 }
                 var string = lecture.timetable;
+                if (this.total_point + lecture.point > 22) {
+                    alert("최대 신청 가능 학점을 넘었습니다.");
+                    return;
+                }
+                this.total_point += lecture.point;
+                this.total_time += lecture.time;
                 var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
                 var result = string.match(reg);
                 if (result.length == 0) {
@@ -161,6 +176,8 @@ var AppComponent = (function () {
             var string = lecture.timetable;
             var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
             var result = string.match(reg);
+            this.total_point -= lecture.point;
+            this.total_time -= lecture.time;
             var slice = this.calculateTime(result);
             for (var i = 0; i < slice.length; i++) {
                 var y = this.day[slice[i].y];
