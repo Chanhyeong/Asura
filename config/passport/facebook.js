@@ -38,6 +38,7 @@ module.exports = function(app, passaort) {
 					return done(err, user);
 				});
 			} else {
+				user.email = user.profile.emails[0].value;
 				return done(err, user);
 			}
 	    });
