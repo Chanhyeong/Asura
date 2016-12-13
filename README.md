@@ -1,4 +1,4 @@
 # Asura
-Web system project
+Web system Design project
 
-Angular2 + Node.js + Mongodb
+Developed by using MEAN stack (Angular2 + Express + Node.js + Mongodb)
