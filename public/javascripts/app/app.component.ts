@@ -30,7 +30,6 @@ export class AppComponent implements OnInit {
     selectedDate: string = "요일";
     selectedTime: string = "시간";
     timeQuery: string = "";
-
     listNum = 5;
 
     onScrollDown(): void {
@@ -47,7 +46,6 @@ export class AppComponent implements OnInit {
             this.table[i] = new Array(6).fill("#FFFFFF");
         }
     }
-
     private getLecture(): void{
         this.cartService.getLectures()
             .subscribe(lectures => this.lectures = lectures,
@@ -56,7 +54,6 @@ export class AppComponent implements OnInit {
                     this.majorList = _.uniqBy(this.lectures, 'major'); this.getCart();});
 
     }
-
     private otherPlan(c : number) : void{
         for (var i = 0; i < 36; i++) {
             this.table[i] = new Array(6).fill("#FFFFFF");
@@ -70,17 +67,15 @@ export class AppComponent implements OnInit {
             this.view_cart.push(this.lectures[_index]);
         }
     }
-
     private getCart() : void{
         this.cartService.getCart()
             .subscribe(DBinfo => this.DBinfo = DBinfo,
                 err=>console.log(err),
                 () => {this.makeFromCart();});
     }
-
     private makeFromCart() : void {
         console.log("load.....");
-        this.my_cart = Object.values(this.DBinfo.plan);
+        this.my_cart = this.DBinfo.plan;
         var _color = this.getRandomColor();
         for (var i = 0; i < this.my_cart[0].length; i++) {
             var _index = this.lectures.findIndex(x => x.code == this.my_cart[0][i]);
@@ -96,7 +91,6 @@ export class AppComponent implements OnInit {
             }
         }
     };
-
     private timeSpread(lecture : Lecture) : void{
         var string = lecture.timetable;
         var reg = /[월|화|수|목|금]{1}(\w|:|~|\.)+/g;
@@ -113,16 +107,22 @@ export class AppComponent implements OnInit {
 
     }
     private saveCart() : void{
-        for(var i=0 ; i<this.my_cart.length ; i++){
-            this.DBinfo.plan[i] = [];
-            for(var j=0 ; j<this.my_cart[i].length ; j++) {
-                this.DBinfo.plan[i].push(this.my_cart[i][j]);
-            }
-        }
 
-        this.cartService.saveCart(this.DBinfo)
-            .subscribe(DBinfo => this.DBinfo = DBinfo,err=>console.log(err)
-                ,()=>{this.makeFromCart() ; alert("저장이 완료 되었습니다!")});
+        if(confirm('저장 하시겠습니까?')) {
+            for (var i = 0; i < this.my_cart.length; i++) {
+                this.DBinfo.plan[i] = [];
+                for (var j = 0; j < this.my_cart[i].length; j++) {
+                    this.DBinfo.plan[i].push(this.my_cart[i][j]);
+                }
+            }
+
+            this.cartService.saveCart(this.DBinfo)
+                .subscribe(DBinfo => this.DBinfo = DBinfo, err=>console.log(err)
+                    , ()=> {
+                        alert("저장이 완료 되었습니다!");
+                        this.makeFromCart();
+                    });
+        }
     }
     private addToCart(lecture : Lecture, _c : number) : void {
         var flag : boolean = false;

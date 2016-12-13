@@ -69,7 +69,7 @@ var AppComponent = (function () {
     AppComponent.prototype.makeFromCart = function () {
         var _this = this;
         console.log("load.....");
-        this.my_cart = Object.values(this.DBinfo.plan);
+        this.my_cart = this.DBinfo.plan;
         var _color = this.getRandomColor();
         for (var i = 0; i < this.my_cart[0].length; i++) {
             var _index = this.lectures.findIndex(function (x) { return x.code == _this.my_cart[0][i]; });
@@ -102,14 +102,19 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.saveCart = function () {
         var _this = this;
-        for (var i = 0; i < this.my_cart.length; i++) {
-            this.DBinfo.plan[i] = [];
-            for (var j = 0; j < this.my_cart[i].length; j++) {
-                this.DBinfo.plan[i].push(this.my_cart[i][j]);
+        if (confirm('저장 하시겠습니까?')) {
+            for (var i = 0; i < this.my_cart.length; i++) {
+                this.DBinfo.plan[i] = [];
+                for (var j = 0; j < this.my_cart[i].length; j++) {
+                    this.DBinfo.plan[i].push(this.my_cart[i][j]);
+                }
             }
+            this.cartService.saveCart(this.DBinfo)
+                .subscribe(function (DBinfo) { return _this.DBinfo = DBinfo; }, function (err) { return console.log(err); }, function () {
+                alert("저장이 완료 되었습니다!");
+                _this.makeFromCart();
+            });
         }
-        this.cartService.saveCart(this.DBinfo)
-            .subscribe(function (DBinfo) { return _this.DBinfo = DBinfo; }, function (err) { return console.log(err); }, function () { _this.makeFromCart(); alert("저장이 완료 되었습니다!"); });
     };
     AppComponent.prototype.addToCart = function (lecture, _c) {
         var flag = false;
