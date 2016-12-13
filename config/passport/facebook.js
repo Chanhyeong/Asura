@@ -24,7 +24,7 @@ module.exports = function(app, passaort) {
 	    database.UserModel.load(options, function (err, user) {
 			if (err) return done(err);
 
-			if (user) {
+			if (!user) {
 				var user = new database.UserModel({
 					name: profile.displayName,
 					email: profile.emails[0].value,
@@ -38,6 +38,7 @@ module.exports = function(app, passaort) {
 					return done(err, user);
 				});
 			} else {
+				user.email = user.profile.emails[0].value;
 				return done(err, user);
 			}
 	    });
